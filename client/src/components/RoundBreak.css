@@ -1,0 +1,109 @@
+.round-break {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.round-break-card {
+  max-width: 700px;
+  width: 100%;
+}
+
+.break-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.break-header h2 {
+  color: var(--primary);
+  margin: 0;
+}
+
+.word-reveal {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  padding: 32px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 32px;
+  color: white;
+}
+
+.reveal-label {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 12px;
+}
+
+.reveal-word {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.reveal-definition {
+  font-size: 18px;
+  opacity: 0.95;
+  line-height: 1.6;
+}
+
+.bonus-section {
+  background: var(--bg);
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.bonus-section h3 {
+  margin: 0 0 8px 0;
+  color: var(--text);
+}
+
+.bonus-description {
+  color: var(--text-light);
+  margin-bottom: 24px;
+}
+
+.bonus-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.team-selector label,
+.points-selector label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.points-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.waiting-section {
+  text-align: center;
+  padding: 24px;
+}
+
+.next-round-section {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .reveal-word {
+    font-size: 36px;
+  }
+
+  .reveal-definition {
+    font-size: 16px;
+  }
+}

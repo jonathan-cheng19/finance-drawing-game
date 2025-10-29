@@ -1,0 +1,54 @@
+.home {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-card {
+  max-width: 500px;
+  width: 100%;
+}
+
+.text-light {
+  color: var(--text-light);
+  font-size: 18px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.btn-large {
+  padding: 16px 32px;
+  font-size: 18px;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 16px;
+  padding: 8px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.back-button:hover {
+  color: var(--primary);
+}
