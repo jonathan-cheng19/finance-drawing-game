@@ -22,16 +22,16 @@ function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
   return (
     <div className="round-break">
       <div className="max-w-7xl w-full mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Main Content */}
           <div className="lg:col-span-2">
       <Card className="round-break-card glass-card fade-in w-full">
-        <CardHeader className="text-center p-8">
+        <CardHeader className="text-center p-10">
           <div className="text-6xl mb-4">🎉</div>
           <CardTitle className="text-4xl">Round {data?.currentRound} Complete!</CardTitle>
         </CardHeader>
 
-        <CardContent className="space-y-6 p-8">
+        <CardContent className="space-y-8 p-10">
           {/* Word Reveal */}
           <div className="word-reveal bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-8 text-center">
             <div className="text-white/90 text-lg mb-2">The word was:</div>

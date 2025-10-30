@@ -95,12 +95,12 @@ function GameBoard({
       )}
       
       <div className="game-container max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main Game Area */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-10">
             {/* Header Card */}
             <Card className="glass-card">
-              <CardContent className="p-10">
+              <CardContent className="p-12">
                 <div className="flex items-center justify-between flex-wrap gap-4">
                     <div>
                     <div className="flex items-center gap-3 mb-3">
@@ -127,7 +127,7 @@ function GameBoard({
 
             {/* Word Display */}
             <Card className="glass-card">
-              <CardContent className="p-10">
+              <CardContent className="p-12">
                 <div className="flex items-center justify-center gap-3 flex-wrap">
                   {wordDisplay.map((letter, idx) => (
                     <div key={idx} className="word-letter-container">
@@ -159,7 +159,7 @@ function GameBoard({
             {/* Guess Input (for players) */}
             {!isHost && (
               <Card className="glass-card">
-                <CardContent className="p-10">
+                <CardContent className="p-12">
                   <form onSubmit={handleGuessSubmit} className="flex gap-4">
                     <Input
                       type="text"

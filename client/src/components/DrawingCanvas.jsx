@@ -8,6 +8,8 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
   const [currentPath, setCurrentPath] = useState([])
   const [color, setColor] = useState('#000000')
   const [brushSize, setBrushSize] = useState(3)
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
+  const [showCursor, setShowCursor] = useState(false)
 
   const colors = [
     { value: '#000000', name: 'Black' },
@@ -48,26 +50,37 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
     }
   }, [drawing])
 
+  const getCanvasCoordinates = (e) => {
+    const canvas = canvasRef.current
+    const rect = canvas.getBoundingClientRect()
+    const scaleX = canvas.width / rect.width
+    const scaleY = canvas.height / rect.height
+    const x = (e.clientX - rect.left) * scaleX
+    const y = (e.clientY - rect.top) * scaleY
+    return { x, y }
+  }
+
   const startDrawing = (e) => {
     if (!isHost) return
 
-    const canvas = canvasRef.current
-    const rect = canvas.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-
+    const { x, y } = getCanvasCoordinates(e)
     setIsDrawing(true)
     setCurrentPath([{ x, y, color, size: brushSize }])
+  }
+
+  const handleMouseMove = (e) => {
+    if (isHost) {
+      const canvas = canvasRef.current
+      const rect = canvas.getBoundingClientRect()
+      setCursorPos({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+    }
+    draw(e)
   }
 
   const draw = (e) => {
     if (!isDrawing || !isHost) return
 
-    const canvas = canvasRef.current
-    const rect = canvas.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-
+    const { x, y } = getCanvasCoordinates(e)
     const newPath = [...currentPath, { x, y, color, size: brushSize }]
     setCurrentPath(newPath)
 
@@ -109,21 +122,42 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
   }
 
   return (
-    <div className="drawing-canvas-container bg-white rounded-lg overflow-hidden">
+    <div className="drawing-canvas-container bg-white rounded-lg overflow-hidden relative">
       <canvas
         ref={canvasRef}
         width={800}
         height={500}
         className="drawing-canvas w-full"
         onMouseDown={startDrawing}
-        onMouseMove={draw}
+        onMouseMove={handleMouseMove}
         onMouseUp={stopDrawing}
-        onMouseLeave={stopDrawing}
-        style={{ cursor: isHost ? 'crosshair' : 'default', display: 'block' }}
+        onMouseLeave={() => { stopDrawing(); setShowCursor(false); }}
+        onMouseEnter={() => setShowCursor(true)}
+        style={{ cursor: isHost ? 'none' : 'default', display: 'block' }}
       />
+      
+      {/* Custom Cursor */}
+      {isHost && showCursor && (
+        <div
+          className="custom-cursor"
+          style={{
+            position: 'absolute',
+            left: cursorPos.x,
+            top: cursorPos.y,
+            width: brushSize * 2,
+            height: brushSize * 2,
+            borderRadius: '50%',
+            border: `2px solid ${color}`,
+            backgroundColor: `${color}40`,
+            pointerEvents: 'none',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 10
+          }}
+        />
+      )}
 
       {isHost && (
-        <div className="drawing-controls bg-gradient-to-r from-emerald-600 to-teal-700 p-4">
+        <div className="drawing-controls bg-gradient-to-r from-blue-500 to-blue-600 p-6">
           <div className="flex items-center justify-between flex-wrap gap-4">
             {/* Brush Size Control */}
             <div className="flex items-center gap-3">

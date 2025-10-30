@@ -31,7 +31,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
     return (
       <div className="home">
         <Card className="home-card glass-card fade-in max-w-2xl w-full">
-          <CardHeader className="text-center space-y-4 p-10">
+          <CardHeader className="text-center space-y-6 p-12">
             <div className="flex items-center justify-center gap-3 mb-2">
               <div className="text-5xl">💰📈</div>
             </div>
@@ -41,8 +41,8 @@ function Home({ onCreateRoom, onJoinRoom }) {
             <p className="text-blue-500 font-medium text-lg">Financial Drawing Game</p>
           </CardHeader>
 
-          <CardContent className="space-y-6 p-10">
-            <div className="grid grid-cols-1 gap-4">
+          <CardContent className="space-y-8 p-12">
+            <div className="grid grid-cols-1 gap-6">
               <Button
                 size="lg"
                 variant="default"
@@ -75,7 +75,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
   return (
     <div className="home">
       <Card className="home-card glass-card fade-in max-w-md w-full">
-        <CardHeader className="p-8">
+        <CardHeader className="p-10">
           <Button
             variant="ghost"
             className="mb-2 w-fit text-gray-600 hover:text-gray-900"
@@ -94,8 +94,8 @@ function Home({ onCreateRoom, onJoinRoom }) {
           </CardDescription>
         </CardHeader>
 
-        <CardContent className="p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <CardContent className="p-10">
+          <form onSubmit={handleSubmit} className="space-y-8">
             <div className="space-y-3">
               <label htmlFor="name" className="text-sm font-medium text-gray-900">
                 Your Name

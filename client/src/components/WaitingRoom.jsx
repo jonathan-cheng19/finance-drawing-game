@@ -9,16 +9,16 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
   const hasTeams = teams.length > 0
 
   const teamColors = [
-    'from-blue-400 to-blue-500',
     'from-blue-500 to-blue-600',
+    'from-green-500 to-green-600',
     'from-orange-500 to-orange-600',
-    'from-red-500 to-red-600',
+    'from-purple-500 to-purple-600',
   ]
 
   return (
     <div className="waiting-room">
       <Card className="waiting-room-card glass-card fade-in max-w-4xl w-full">
-        <CardHeader className="p-8">
+        <CardHeader className="p-10">
           <div className="flex items-center justify-between flex-wrap gap-6">
             <CardTitle className="text-3xl">🎮 Waiting Room</CardTitle>
             <div className="flex items-center gap-2 bg-white/90 px-4 py-2 rounded-lg border-2 border-blue-500">
@@ -28,9 +28,9 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
           </div>
         </CardHeader>
 
-        <CardContent className="space-y-8 p-8">
+        <CardContent className="space-y-10 p-10">
           {!hasTeams && (
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-semibold text-gray-900">Players Waiting</h3>
                 <Badge variant="secondary" className="text-base px-3 py-1 bg-blue-100 text-blue-700">
@@ -38,7 +38,7 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
                 </Badge>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {players.map((player) => (
                   <div
                     key={player.id}
@@ -58,11 +58,11 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
           )}
 
           {hasTeams && (
-            <div className="space-y-4">
+            <div className="space-y-6">
               <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
                 <span>👥</span> Teams
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {teams.map((team, idx) => (
                   <div
                     key={team.id}
@@ -74,7 +74,7 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
                         {team.players.length} {team.players.length === 1 ? 'member' : 'members'}
                       </Badge>
                     </div>
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                       {team.players.map((player) => (
                         <div
                           key={player.id}
