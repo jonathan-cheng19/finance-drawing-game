@@ -8,7 +8,7 @@
 }
 
 body {
-  font-family: 'Tahoma', Geneva, sans-serif;
+  font-family: 'Tahoma', Geneva, 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #111827;
@@ -18,8 +18,10 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   color: #1a1a1a;
-  line-height: 1.6;
+  line-height: 1.7;
   min-height: 100vh;
+  font-size: 16px;
+  letter-spacing: 0.01em;
 }
 
 #root {
@@ -31,12 +33,20 @@ body {
 }
 
 button {
-  font-family: Tahoma, Geneva, sans-serif;
+  font-family: 'Tahoma', Geneva, 'Helvetica Neue', Arial, sans-serif;
   cursor: pointer;
+  letter-spacing: 0.02em;
 }
 
 input, select {
-  font-family: Tahoma, Geneva, sans-serif;
+  font-family: 'Tahoma', Geneva, 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: 0.01em;
+}
+
+label {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 /* Animations */
@@ -139,5 +149,8 @@ input, select {
 /* Roboto font for titles and headers */
 h1, h2, h3, h4, h5, h6,
 .font-heading {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
