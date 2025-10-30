@@ -246,7 +246,8 @@ io.on('connection', (socket) => {
       team.score += points;
       room.playersAnswered.push(socket.id);
 
-      io.to(roomCode).emit('correctGuess', {
+      // Send correct guess notification only to the player who guessed
+      io.to(socket.id).emit('correctGuess', {
         playerName: player.name,
         teamName: team.name,
         word: room.currentWord,

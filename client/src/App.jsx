@@ -89,6 +89,7 @@ function App() {
     socket.on('roundBreak', (data) => {
       setGameState('roundBreak')
       setRoundBreakData(data)
+      setCorrectGuessData(null) // Clear correct guess overlay
     })
 
     // Round started
