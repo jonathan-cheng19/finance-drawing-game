@@ -152,16 +152,16 @@ function GameBoard({
             {!isHost && (
               <Card className="glass-card">
                 <CardContent className="p-12">
-                  <form onSubmit={handleGuessSubmit} className="flex gap-4">
+                  <form onSubmit={handleGuessSubmit} className="flex gap-6">
                     <Input
                       type="text"
-                      className="flex-1 h-12 text-lg"
+                      className="flex-1 h-14 text-lg"
                       placeholder="Type your guess here..."
                       value={guess}
                       onChange={(e) => setGuess(e.target.value)}
                       autoComplete="off"
                     />
-                    <Button type="submit" size="lg" className="px-8 bg-blue-500 hover:bg-blue-600 text-white">
+                    <Button type="submit" size="lg" className="px-10 h-14 bg-blue-500 hover:bg-blue-600 text-white">
                       Guess!
                     </Button>
                   </form>

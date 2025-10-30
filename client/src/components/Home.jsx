@@ -41,8 +41,8 @@ function Home({ onCreateRoom, onJoinRoom }) {
             <p className="text-blue-500 font-medium text-lg">Financial Drawing Game</p>
           </CardHeader>
 
-          <CardContent className="space-y-8 p-12">
-            <div className="grid grid-cols-1 gap-6">
+          <CardContent className="space-y-10 p-12">
+            <div className="grid grid-cols-1 gap-8">
               <Button
                 size="lg"
                 variant="default"
@@ -63,7 +63,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
               </Button>
             </div>
             
-            <p className="text-center text-blue-500 text-sm font-medium pt-4">
+            <p className="text-center text-blue-500 text-sm font-medium pt-6">
               Learn finance concepts while having fun!
             </p>
           </CardContent>
@@ -95,8 +95,8 @@ function Home({ onCreateRoom, onJoinRoom }) {
         </CardHeader>
 
         <CardContent className="p-10">
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="space-y-3">
+          <form onSubmit={handleSubmit} className="space-y-10">
+            <div className="space-y-4">
               <label htmlFor="name" className="text-sm font-medium text-gray-900">
                 Your Name
               </label>
@@ -112,7 +112,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
             </div>
 
             {mode === 'join' && (
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <label htmlFor="roomCode" className="text-sm font-medium text-gray-900">
                   Room Code
                 </label>
