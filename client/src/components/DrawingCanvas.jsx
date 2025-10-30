@@ -12,6 +12,7 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
   const [showCursor, setShowCursor] = useState(false)
   const lastEmitTime = useRef(0)
   const emitThrottle = 50 // milliseconds
+  const currentPathIndex = useRef(-1)
 
   const colors = [
     { value: '#000000', name: 'Black' },
@@ -72,6 +73,7 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
     
     // Start a new path in the drawing array
     const newDrawing = drawing ? [...drawing, newPath] : [newPath]
+    currentPathIndex.current = newDrawing.length - 1
     onDraw(newDrawing)
   }
 
@@ -111,8 +113,9 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
 
     // Throttle updates to other players
     const now = Date.now()
-    if (drawing && drawing.length > 0 && now - lastEmitTime.current > emitThrottle) {
-      const newDrawing = [...drawing.slice(0, -1), newPath]
+    if (drawing && currentPathIndex.current >= 0 && now - lastEmitTime.current > emitThrottle) {
+      const newDrawing = [...drawing]
+      newDrawing[currentPathIndex.current] = newPath
       onDraw(newDrawing)
       lastEmitTime.current = now
     }
@@ -122,13 +125,15 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
     if (!isHost) return
 
     // Send final path update to ensure completeness
-    if (isDrawing && currentPath.length > 0 && drawing) {
-      const newDrawing = [...drawing.slice(0, -1), currentPath]
+    if (isDrawing && currentPath.length > 0 && drawing && currentPathIndex.current >= 0) {
+      const newDrawing = [...drawing]
+      newDrawing[currentPathIndex.current] = currentPath
       onDraw(newDrawing)
     }
     
     setIsDrawing(false)
     setCurrentPath([])
+    currentPathIndex.current = -1
   }
 
   const clearCanvas = () => {

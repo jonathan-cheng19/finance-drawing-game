@@ -246,6 +246,8 @@ io.on('connection', (socket) => {
       team.score += points;
       room.playersAnswered.push(socket.id);
 
+      console.log(`${player.name} scored ${points} points! Total: ${player.score}`);
+
       // Send correct guess notification only to the player who guessed
       io.to(socket.id).emit('correctGuess', {
         playerName: player.name,
@@ -261,6 +263,7 @@ io.on('connection', (socket) => {
         startRoundBreak(roomCode);
       } else {
         // Broadcast updated scores but continue round
+        console.log(`Broadcasting score update. Players answered: ${room.playersAnswered.length}/${nonHostPlayers.length}`);
         broadcastRoomUpdate(roomCode);
       }
     }
