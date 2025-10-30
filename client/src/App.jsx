@@ -42,10 +42,13 @@ function App() {
 
     // Room update
     socket.on('roomUpdate', (data) => {
-      console.log('📊 Room update received:', { 
+      const timestamp = new Date().toLocaleTimeString()
+      console.log(`📊 [${timestamp}] Room update received:`, { 
         teams: data.teams?.map(t => ({ name: t.name, score: t.score })),
         players: data.players?.map(p => ({ name: p.name, score: p.score }))
       })
+      console.log('  Setting teams state:', data.teams)
+      console.log('  Setting players state:', data.players)
       setTeams(data.teams)
       setPlayers(data.players)
       if (data.gameState) {

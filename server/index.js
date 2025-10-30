@@ -248,6 +248,7 @@ io.on('connection', (socket) => {
 
       console.log(`✓ ${player.name} (${socket.id}) scored ${points} points! Total: ${player.score}`);
       console.log(`  Team ${team.name} now has ${team.score} points`);
+      console.log(`  All team scores:`, room.teams.map(t => `${t.name}: ${t.score}`).join(', '));
 
       // Send correct guess notification only to the player who guessed
       console.log(`  Sending correctGuess event to socket: ${socket.id}`);
@@ -258,15 +259,17 @@ io.on('connection', (socket) => {
         points
       });
 
+      // Always broadcast updated scores immediately
+      console.log(`  Broadcasting score update to room ${roomCode}`);
+      broadcastRoomUpdate(roomCode);
+
       // Check if all non-host players have answered
       const nonHostPlayers = room.players.filter(p => p.id !== room.host);
+      console.log(`  Players answered: ${room.playersAnswered.length}/${nonHostPlayers.length}`);
       if (room.playersAnswered.length >= nonHostPlayers.length) {
         // All players have answered, move to round break
+        console.log(`  All players answered! Moving to round break.`);
         startRoundBreak(roomCode);
-      } else {
-        // Broadcast updated scores but continue round
-        console.log(`Broadcasting score update. Players answered: ${room.playersAnswered.length}/${nonHostPlayers.length}`);
-        broadcastRoomUpdate(roomCode);
       }
     }
   });
