@@ -90,6 +90,9 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
     setCurrentPath(newPath)
 
     // Draw current path
+    const canvas = canvasRef.current
+    if (!canvas) return
+    
     const ctx = canvas.getContext('2d')
     ctx.beginPath()
     ctx.strokeStyle = color

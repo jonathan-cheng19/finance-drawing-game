@@ -6,7 +6,7 @@ import LoadingAnimation from './LoadingAnimation'
 import Leaderboard from './Leaderboard'
 import './RoundBreak.css'
 
-function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
+function RoundBreak({ isHost, data, teams, players, onAwardBonus, onNextRound }) {
   const [selectedTeam, setSelectedTeam] = useState(null)
   const [bonusPoints, setBonusPoints] = useState(100)
 
@@ -125,7 +125,7 @@ function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
           
           {/* Leaderboard Sidebar */}
           <div className="lg:col-span-1">
-            <Leaderboard teams={teams} />
+            <Leaderboard teams={teams} players={players} />
           </div>
         </div>
       </div>

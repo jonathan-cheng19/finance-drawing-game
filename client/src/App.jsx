@@ -245,6 +245,7 @@ function App() {
           isHost={isHost}
           data={roundBreakData}
           teams={teams}
+          players={players}
           onAwardBonus={awardBonus}
           onNextRound={nextRound}
         />
