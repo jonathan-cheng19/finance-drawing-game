@@ -5,6 +5,7 @@ import WaitingRoom from './components/WaitingRoom'
 import GameBoard from './components/GameBoard'
 import RoundBreak from './components/RoundBreak'
 import GameEnd from './components/GameEnd'
+import Notification from './components/Notification'
 import './App.css'
 
 // Get backend URL from environment variable, fallback to localhost
@@ -27,6 +28,7 @@ function App() {
   const [roundBreakData, setRoundBreakData] = useState(null)
   const [gameEndData, setGameEndData] = useState(null)
   const [isConnected, setIsConnected] = useState(false)
+  const [notification, setNotification] = useState(null)
 
   useEffect(() => {
     // Connection status
@@ -77,8 +79,32 @@ function App() {
 
     // Correct guess
     socket.on('correctGuess', (data) => {
-      // Show notification or toast
       console.log('Correct guess!', data)
+      // Show notification popup
+      setNotification({
+        message: 'Correct!',
+        points: data.points,
+        teamName: data.teamName
+      })
+
+      // Update teams/players immediately to sync scores
+      setTeams(prevTeams => {
+        return prevTeams.map(team => {
+          if (team.name === data.teamName) {
+            return { ...team, score: team.score + data.points }
+          }
+          return team
+        })
+      })
+
+      setPlayers(prevPlayers => {
+        return prevPlayers.map(player => {
+          if (player.name === data.playerName) {
+            return { ...player, score: player.score + data.points }
+          }
+          return player
+        })
+      })
     })
 
     // Round break
@@ -245,6 +271,16 @@ function App() {
         <GameEnd
           data={gameEndData}
           onPlayAgain={resetGame}
+        />
+      )}
+
+      {/* Notification Popup */}
+      {notification && (
+        <Notification
+          message={notification.message}
+          points={notification.points}
+          teamName={notification.teamName}
+          onClose={() => setNotification(null)}
         />
       )}
     </div>
