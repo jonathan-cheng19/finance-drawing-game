@@ -8,6 +8,7 @@ function Leaderboard({ teams, players, currentPlayer }) {
   // Log when teams prop changes
   useEffect(() => {
     console.log('🏆 Leaderboard received new teams:', teams.map(t => `${t.name}: ${t.score}`).join(', '))
+    console.log('   Full teams data:', teams)
   }, [teams])
 
   // Sort teams by score

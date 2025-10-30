@@ -240,16 +240,25 @@ io.on('connection', (socket) => {
     }
 
     const player = room.players.find(p => p.id === socket.id);
-    if (!player) return;
+    if (!player) {
+      console.log(`❌ Player not found for socket ${socket.id}`);
+      return;
+    }
+
+    console.log(`📝 ${player.name} (team ID: ${player.teamId}) is guessing: "${guess}"`);
 
     // Check if player already answered correctly this round
     if (!room.playersAnswered) room.playersAnswered = [];
     if (room.playersAnswered.includes(socket.id)) {
+      console.log(`⚠️  ${player.name} already answered this round`);
       return; // Player already answered correctly
     }
 
     const team = room.teams.find(t => t.id === player.teamId);
-    if (!team) return;
+    if (!team) {
+      console.log(`❌ Team not found for player ${player.name} (teamId: ${player.teamId})`);
+      return;
+    }
 
     // Check if guess is correct
     if (guess.toLowerCase().trim() === room.currentWord.toLowerCase()) {
