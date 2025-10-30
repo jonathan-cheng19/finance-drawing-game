@@ -80,14 +80,17 @@ function App() {
     // Correct guess
     socket.on('correctGuess', (data) => {
       console.log('Correct guess!', data)
-      // Show notification popup
-      setNotification({
-        message: 'Correct!',
-        points: data.points,
-        teamName: data.teamName
-      })
 
-      // Update teams/players immediately to sync scores
+      // Only show notification popup to the player who guessed correctly
+      if (data.playerName === playerName) {
+        setNotification({
+          message: 'Correct!',
+          points: data.points,
+          teamName: data.teamName
+        })
+      }
+
+      // Update teams/players immediately to sync scores for all players
       setTeams(prevTeams => {
         return prevTeams.map(team => {
           if (team.name === data.teamName) {
@@ -262,6 +265,8 @@ function App() {
           isHost={isHost}
           data={roundBreakData}
           teams={teams}
+          players={players}
+          playerName={playerName}
           onAwardBonus={awardBonus}
           onNextRound={nextRound}
         />

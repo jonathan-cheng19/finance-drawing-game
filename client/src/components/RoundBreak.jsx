@@ -3,9 +3,10 @@ import { Button } from './ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Badge } from './ui/badge'
 import LoadingAnimation from './LoadingAnimation'
+import Leaderboard from './Leaderboard'
 import './RoundBreak.css'
 
-function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
+function RoundBreak({ isHost, data, teams, players, playerName, onAwardBonus, onNextRound }) {
   const [selectedTeam, setSelectedTeam] = useState(null)
   const [bonusPoints, setBonusPoints] = useState(100)
 
@@ -33,6 +34,9 @@ function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
             <div className="text-5xl font-extrabold text-white mb-4">{data?.word}</div>
             <div className="text-white/90 text-lg max-w-2xl mx-auto">{data?.definition}</div>
           </div>
+
+          {/* Leaderboard - Visible to All Players */}
+          <Leaderboard teams={teams} players={players} currentPlayer={playerName} />
 
             {/* Bonus Points Section (Host Only) */}
           {isHost && (
