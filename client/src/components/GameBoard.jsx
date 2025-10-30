@@ -19,6 +19,7 @@ function GameBoard({
   teams,
   players,
   playerName,
+  spacePositions,
   onDraw,
   onGuess
 }) {
@@ -53,15 +54,14 @@ function GameBoard({
   // Create word display with underscores and revealed letters
   const wordDisplay = []
   for (let i = 0; i < wordLength; i++) {
-    const revealed = revealedLetters.find(r => r.position === i)
-    const letter = revealed ? revealed.letter : '_'
-    
-    // Check if this is a space
-    if (letter === ' ') {
+    // Check if this position is a space (always show spaces)
+    if (spacePositions && spacePositions.includes(i)) {
       wordDisplay.push(
         <span key={i} className="word-space"></span>
       )
     } else {
+      const revealed = revealedLetters.find(r => r.position === i)
+      const letter = revealed ? revealed.letter : '_'
       wordDisplay.push(
         <span key={i} className="word-letter">
           {letter}

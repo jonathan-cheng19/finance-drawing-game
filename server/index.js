@@ -191,11 +191,20 @@ io.on('connection', (socket) => {
     room.currentDrawing = [];
     room.playersAnswered = [];
 
+    // Find space positions in the word
+    const spacePositions = [];
+    for (let i = 0; i < room.currentWord.length; i++) {
+      if (room.currentWord[i] === ' ') {
+        spacePositions.push(i);
+      }
+    }
+
     io.to(roomCode).emit('gameStarted', {
       currentRound: room.currentRound,
       wordLength: room.currentWord.length,
       roundConfig: ROUND_CONFIG[1],
-      totalRounds: TOTAL_ROUNDS
+      totalRounds: TOTAL_ROUNDS,
+      spacePositions: spacePositions
     });
 
     // Send word to host only
@@ -324,11 +333,20 @@ io.on('connection', (socket) => {
     room.currentDrawing = [];
     room.playersAnswered = []; // Reset answered players for new round
 
+    // Find space positions in the word
+    const spacePositions = [];
+    for (let i = 0; i < room.currentWord.length; i++) {
+      if (room.currentWord[i] === ' ') {
+        spacePositions.push(i);
+      }
+    }
+
     io.to(roomCode).emit('roundStarted', {
       currentRound: room.currentRound,
       wordLength: room.currentWord.length,
       roundConfig: ROUND_CONFIG[room.currentRound],
-      totalRounds: TOTAL_ROUNDS
+      totalRounds: TOTAL_ROUNDS,
+      spacePositions: spacePositions
     });
 
     io.to(room.host).emit('wordToDrawn', {

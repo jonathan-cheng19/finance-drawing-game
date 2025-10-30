@@ -28,6 +28,7 @@ function App() {
   const [gameEndData, setGameEndData] = useState(null)
   const [isConnected, setIsConnected] = useState(false)
   const [totalRounds, setTotalRounds] = useState(6)
+  const [spacePositions, setSpacePositions] = useState([])
   // Removed correctGuessData - no longer using overlay
 
   useEffect(() => {
@@ -68,6 +69,8 @@ function App() {
       setRevealedLetters([])
       setDrawing([])
       setTotalRounds(data.totalRounds || 6)
+      setSpacePositions(data.spacePositions || [])
+      console.log('🎮 Game started with space positions:', data.spacePositions)
     })
 
     // Word to draw (host only)
@@ -106,6 +109,8 @@ function App() {
       setRoundConfig(data.roundConfig)
       setRevealedLetters([])
       setDrawing([])
+      setSpacePositions(data.spacePositions || [])
+      console.log('🎮 Round started with space positions:', data.spacePositions)
       setWordToDrawn(null)
       setTotalRounds(data.totalRounds || 6)
       setCorrectGuessData(null)
@@ -241,6 +246,7 @@ function App() {
           teams={teams}
           players={players}
           playerName={playerName}
+          spacePositions={spacePositions}
           onDraw={sendDrawing}
           onGuess={sendGuess}
         />
