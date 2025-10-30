@@ -35,6 +35,8 @@ jobs:
           npm ci
           
       - name: Build
+        env:
+          VITE_BACKEND_URL: https://finance-drawing-game-production.up.railway.app
         run: |
           cd client
           npm run build
