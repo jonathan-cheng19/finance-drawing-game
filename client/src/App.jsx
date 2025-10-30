@@ -27,6 +27,8 @@ function App() {
   const [roundBreakData, setRoundBreakData] = useState(null)
   const [gameEndData, setGameEndData] = useState(null)
   const [isConnected, setIsConnected] = useState(false)
+  const [totalRounds, setTotalRounds] = useState(6)
+  const [correctGuessData, setCorrectGuessData] = useState(null)
 
   useEffect(() => {
     // Connection status
@@ -58,6 +60,8 @@ function App() {
       setRoundConfig(data.roundConfig)
       setRevealedLetters([])
       setDrawing([])
+      setTotalRounds(data.totalRounds || 6)
+      setCorrectGuessData(null)
     })
 
     // Word to draw (host only)
@@ -77,8 +81,12 @@ function App() {
 
     // Correct guess
     socket.on('correctGuess', (data) => {
-      // Show notification or toast
-      console.log('Correct guess!', data)
+      // Show overlay with correct guess notification
+      setCorrectGuessData(data)
+      // Auto-hide after 3 seconds
+      setTimeout(() => {
+        setCorrectGuessData(null)
+      }, 3000)
     })
 
     // Round break
@@ -96,6 +104,8 @@ function App() {
       setRevealedLetters([])
       setDrawing([])
       setWordToDrawn(null)
+      setTotalRounds(data.totalRounds || 6)
+      setCorrectGuessData(null)
     })
 
     // Game ended
@@ -218,6 +228,7 @@ function App() {
         <GameBoard
           isHost={isHost}
           currentRound={currentRound}
+          totalRounds={totalRounds}
           wordToDrawn={wordToDrawn}
           wordLength={wordLength}
           roundConfig={roundConfig}
@@ -228,6 +239,7 @@ function App() {
           playerName={playerName}
           onDraw={sendDrawing}
           onGuess={sendGuess}
+          correctGuessData={correctGuessData}
         />
       )}
 

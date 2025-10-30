@@ -28,7 +28,7 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
           </div>
         </CardHeader>
 
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-8 p-8">
           {!hasTeams && (
             <div className="space-y-4">
               <div className="flex items-center justify-between">

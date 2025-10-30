@@ -3,7 +3,7 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import { generateTeamName, generateRoomCode } from './utils/gameUtils.js';
-import { WORD_POOLS, ROUND_CONFIG } from './config/gameConfig.js';
+import { WORD_POOLS, ROUND_CONFIG, TOTAL_ROUNDS } from './config/gameConfig.js';
 
 const app = express();
 app.use(cors());
@@ -176,17 +176,20 @@ io.on('connection', (socket) => {
     room.gameState = 'playing';
     room.currentRound = 1;
 
-    // Select a word for round 1
-    const wordPool = WORD_POOLS[1];
+    // Select a word for round 1 based on difficulty
+    const difficulty = ROUND_CONFIG[1].difficulty;
+    const wordPool = WORD_POOLS[difficulty];
     room.currentWord = wordPool[Math.floor(Math.random() * wordPool.length)];
     room.roundStartTime = Date.now();
     room.revealedLetters = [];
     room.currentDrawing = [];
+    room.playersAnswered = [];
 
     io.to(roomCode).emit('gameStarted', {
       currentRound: room.currentRound,
       wordLength: room.currentWord.length,
-      roundConfig: ROUND_CONFIG[1]
+      roundConfig: ROUND_CONFIG[1],
+      totalRounds: TOTAL_ROUNDS
     });
 
     // Send word to host only
@@ -290,7 +293,7 @@ io.on('connection', (socket) => {
       return;
     }
 
-    if (room.currentRound >= 3) {
+    if (room.currentRound >= TOTAL_ROUNDS) {
       endGame(roomCode);
       return;
     }
@@ -298,7 +301,8 @@ io.on('connection', (socket) => {
     room.currentRound++;
     room.gameState = 'playing';
 
-    const wordPool = WORD_POOLS[room.currentRound];
+    const difficulty = ROUND_CONFIG[room.currentRound].difficulty;
+    const wordPool = WORD_POOLS[difficulty];
     room.currentWord = wordPool[Math.floor(Math.random() * wordPool.length)];
     room.roundStartTime = Date.now();
     room.revealedLetters = [];
@@ -308,7 +312,8 @@ io.on('connection', (socket) => {
     io.to(roomCode).emit('roundStarted', {
       currentRound: room.currentRound,
       wordLength: room.currentWord.length,
-      roundConfig: ROUND_CONFIG[room.currentRound]
+      roundConfig: ROUND_CONFIG[room.currentRound],
+      totalRounds: TOTAL_ROUNDS
     });
 
     io.to(room.host).emit('wordToDrawn', {

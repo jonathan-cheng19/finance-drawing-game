@@ -36,9 +36,9 @@ function Home({ onCreateRoom, onJoinRoom }) {
               <div className="text-5xl">💰📈</div>
             </div>
             <h1 className="text-5xl font-extrabold text-gray-900">
-              Modern Money Lab
+              PPM Pictionary
             </h1>
-            <p className="text-emerald-600 font-medium text-lg">Financial Pictionary</p>
+            <p className="text-emerald-600 font-medium text-lg">Financial Drawing Game</p>
             <div className="h-1 w-24 mx-auto bg-gradient-to-r from-yellow-400 via-emerald-500 to-yellow-400 rounded-full"></div>
           </CardHeader>
 

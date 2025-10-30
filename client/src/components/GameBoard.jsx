@@ -10,6 +10,7 @@ import './GameBoard.css'
 function GameBoard({
   isHost,
   currentRound,
+  totalRounds,
   wordToDrawn,
   wordLength,
   roundConfig,
@@ -19,7 +20,8 @@ function GameBoard({
   players,
   playerName,
   onDraw,
-  onGuess
+  onGuess,
+  correctGuessData
 }) {
   const [guess, setGuess] = useState('')
   const [timeRemaining, setTimeRemaining] = useState(0)
@@ -74,21 +76,38 @@ function GameBoard({
   const isTimerLow = timeRemaining <= 10 && timeRemaining > 0
 
   return (
-    <div className={`game-board min-h-screen py-8 px-6 ${isTimerLow ? 'timer-warning' : ''}`}>
+    <div className={`game-board min-h-screen py-12 px-8 ${isTimerLow ? 'timer-warning' : ''}`}>
+      {/* Correct Guess Overlay */}
+      {correctGuessData && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center" style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
+          <div className="correct-guess-overlay animate-bounce-in">
+            <div className="text-6xl font-extrabold text-green-400 mb-4 drop-shadow-lg">
+              ✓ CORRECT!
+            </div>
+            <div className="text-4xl font-bold text-white mb-2">
+              {correctGuessData.playerName}
+            </div>
+            <div className="text-3xl font-semibold text-green-300">
+              +{correctGuessData.points} points
+            </div>
+          </div>
+        </div>
+      )}
+      
       <div className="game-container max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Main Game Area */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-8">
             {/* Header Card */}
             <Card>
-              <CardContent className="p-8">
+              <CardContent className="p-10">
                 <div className="flex items-center justify-between flex-wrap gap-4">
                     <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <Badge variant="default" className="text-lg px-3 py-1">
-                        Round {currentRound}/3
+                    <div className="flex items-center gap-3 mb-3">
+                      <Badge variant="default" className="text-lg px-4 py-2">
+                        Round {currentRound}/{totalRounds}
                       </Badge>
-                      <span className="text-gray-700 text-sm">{roundConfig?.description}</span>
+                      <span className="text-gray-700 text-base">{roundConfig?.description}</span>
                     </div>
                   </div>
                   <div className="flex flex-col items-end gap-2">
@@ -108,7 +127,7 @@ function GameBoard({
 
             {/* Word Display */}
             <Card>
-              <CardContent className="p-8">
+              <CardContent className="p-10">
                 <div className="flex items-center justify-center gap-3 flex-wrap">
                   {wordDisplay.map((letter, idx) => (
                     <div key={idx} className="word-letter-container">
@@ -140,7 +159,7 @@ function GameBoard({
             {/* Guess Input (for players) */}
             {!isHost && (
               <Card>
-                <CardContent className="p-8">
+                <CardContent className="p-10">
                   <form onSubmit={handleGuessSubmit} className="flex gap-4">
                     <Input
                       type="text"
