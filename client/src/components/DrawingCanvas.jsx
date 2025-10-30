@@ -64,8 +64,13 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
     if (!isHost) return
 
     const { x, y } = getCanvasCoordinates(e)
+    const newPath = [{ x, y, color, size: brushSize }]
     setIsDrawing(true)
-    setCurrentPath([{ x, y, color, size: brushSize }])
+    setCurrentPath(newPath)
+    
+    // Start a new path in the drawing array
+    const newDrawing = drawing ? [...drawing, newPath] : [newPath]
+    onDraw(newDrawing)
   }
 
   const handleMouseMove = (e) => {
@@ -98,16 +103,18 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
       ctx.lineTo(x, y)
       ctx.stroke()
     }
+
+    // Update the last path in the drawing array in real-time
+    if (drawing && drawing.length > 0) {
+      const newDrawing = [...drawing.slice(0, -1), newPath]
+      onDraw(newDrawing)
+    }
   }
 
   const stopDrawing = () => {
     if (!isHost) return
 
-    if (isDrawing && currentPath.length > 0) {
-      const newDrawing = drawing ? [...drawing, currentPath] : [currentPath]
-      onDraw(newDrawing)
-    }
-
+    // Path is already in the drawing array, just finalize it
     setIsDrawing(false)
     setCurrentPath([])
   }
