@@ -76,6 +76,13 @@ function GameBoard({
 
   const isTimerLow = timeRemaining <= 10 && timeRemaining > 0
 
+  // Log when correctGuessData changes
+  useEffect(() => {
+    if (correctGuessData) {
+      console.log('🎊 GameBoard: Showing correct guess overlay:', correctGuessData)
+    }
+  }, [correctGuessData])
+
   return (
     <div className={`game-board min-h-screen py-12 px-8 ${isTimerLow ? 'timer-warning' : ''}`}>
       {/* Correct Guess Overlay */}

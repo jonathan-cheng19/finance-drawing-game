@@ -42,6 +42,10 @@ function App() {
 
     // Room update
     socket.on('roomUpdate', (data) => {
+      console.log('📊 Room update received:', { 
+        teams: data.teams?.map(t => ({ name: t.name, score: t.score })),
+        players: data.players?.map(p => ({ name: p.name, score: p.score }))
+      })
       setTeams(data.teams)
       setPlayers(data.players)
       if (data.gameState) {
@@ -81,6 +85,8 @@ function App() {
 
     // Correct guess
     socket.on('correctGuess', (data) => {
+      console.log('🎉 Received correctGuess event:', data)
+      console.log('Current playerName:', playerName)
       // Show overlay with correct guess notification - stays until round ends
       setCorrectGuessData(data)
     })
@@ -170,6 +176,7 @@ function App() {
   }
 
   const sendGuess = (guess) => {
+    console.log(`📝 Sending guess: "${guess}" from player: ${playerName}`)
     socket.emit('guess', { roomCode, guess })
   }
 
