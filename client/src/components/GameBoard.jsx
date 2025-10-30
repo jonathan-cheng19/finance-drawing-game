@@ -56,11 +56,20 @@ function GameBoard({
   const wordDisplay = []
   for (let i = 0; i < wordLength; i++) {
     const revealed = revealedLetters.find(r => r.position === i)
-    wordDisplay.push(
-      <span key={i} className="word-letter">
-        {revealed ? revealed.letter : '_'}
-      </span>
-    )
+    const letter = revealed ? revealed.letter : '_'
+    
+    // Check if this is a space
+    if (letter === ' ') {
+      wordDisplay.push(
+        <span key={i} className="word-space"></span>
+      )
+    } else {
+      wordDisplay.push(
+        <span key={i} className="word-letter">
+          {letter}
+        </span>
+      )
+    }
   }
 
   const progressPercentage = roundConfig

@@ -29,6 +29,13 @@
   animation: fadeIn 0.3s ease;
 }
 
+.word-space {
+  display: inline-block;
+  width: 2rem;
+  height: 3rem;
+  margin: 0 8px;
+}
+
 .host-view {
   display: flex;
   flex-direction: column;
