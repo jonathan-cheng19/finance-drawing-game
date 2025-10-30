@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/financial-pictionary/',
+  base: '/finance-drawing-game/',
   server: {
     port: 5173
   },
