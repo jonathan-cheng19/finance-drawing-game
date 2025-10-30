@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Badge } from './ui/badge'
+import AnimatedNumber from './AnimatedNumber'
 import './Leaderboard.css'
 
 function Leaderboard({ teams, players, currentPlayer }) {
@@ -44,7 +45,9 @@ function Leaderboard({ teams, players, currentPlayer }) {
                   </Badge>
                 </div>
               </div>
-              <div className="text-3xl font-extrabold text-white">{team.score}</div>
+              <div className="text-3xl font-extrabold text-white">
+                <AnimatedNumber value={team.score} />
+              </div>
             </div>
 
             <div className="space-y-2">
@@ -63,7 +66,9 @@ function Leaderboard({ teams, players, currentPlayer }) {
                       {player.name}
                       {isCurrentPlayer && ' 👤'}
                     </span>
-                    <span className="text-white font-bold">{playerData?.score || 0}</span>
+                    <span className="text-white font-bold">
+                      <AnimatedNumber value={playerData?.score || 0} duration={600} />
+                    </span>
                   </div>
                 )
               })}

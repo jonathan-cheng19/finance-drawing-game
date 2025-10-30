@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Button } from './ui/button'
-import { Input } from './ui/input'
 import { Card, CardContent } from './ui/card'
 import { Badge } from './ui/badge'
+import { Button } from './ui/button'
+import { Input } from './ui/input'
 import DrawingCanvas from './DrawingCanvas'
 import Leaderboard from './Leaderboard'
+import AnimatedNumber from './AnimatedNumber'
 import './GameBoard.css'
 
 function GameBoard({
@@ -88,7 +89,7 @@ function GameBoard({
               You scored
             </div>
             <div className="text-6xl font-extrabold" style={{ color: '#60a5fa' }}>
-              {correctGuessData.points} points!
+              <AnimatedNumber value={correctGuessData.points} duration={1000} /> points!
             </div>
           </div>
         </div>

@@ -420,7 +420,6 @@ function startRoundBreak(roomCode) {
 
   io.to(roomCode).emit('roundBreak', {
     word: room.currentWord,
-    definition: getWordDefinition(room.currentWord),
     currentRound: room.currentRound
   });
 }

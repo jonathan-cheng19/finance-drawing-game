@@ -10,6 +10,8 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
   const [brushSize, setBrushSize] = useState(3)
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
   const [showCursor, setShowCursor] = useState(false)
+  const lastEmitTime = useRef(0)
+  const emitThrottle = 50 // milliseconds
 
   const colors = [
     { value: '#000000', name: 'Black' },
@@ -89,7 +91,7 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
     const newPath = [...currentPath, { x, y, color, size: brushSize }]
     setCurrentPath(newPath)
 
-    // Draw current path
+    // Draw current path locally
     const canvas = canvasRef.current
     if (!canvas) return
     
@@ -107,17 +109,24 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
       ctx.stroke()
     }
 
-    // Update the last path in the drawing array in real-time
-    if (drawing && drawing.length > 0) {
+    // Throttle updates to other players
+    const now = Date.now()
+    if (drawing && drawing.length > 0 && now - lastEmitTime.current > emitThrottle) {
       const newDrawing = [...drawing.slice(0, -1), newPath]
       onDraw(newDrawing)
+      lastEmitTime.current = now
     }
   }
 
   const stopDrawing = () => {
     if (!isHost) return
 
-    // Path is already in the drawing array, just finalize it
+    // Send final path update to ensure completeness
+    if (isDrawing && currentPath.length > 0 && drawing) {
+      const newDrawing = [...drawing.slice(0, -1), currentPath]
+      onDraw(newDrawing)
+    }
+    
     setIsDrawing(false)
     setCurrentPath([])
   }
