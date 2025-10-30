@@ -8,8 +8,8 @@ function GameEnd({ data, onPlayAgain }) {
   const players = data?.players || []
 
   const getRankColor = (index) => {
-    if (index === 0) return 'from-blue-500 to-blue-600'
-    if (index === 1) return 'from-green-500 to-green-600'
+    if (index === 0) return 'from-emerald-500 to-teal-600'
+    if (index === 1) return 'from-teal-500 to-cyan-600'
     if (index === 2) return 'from-gray-400 to-gray-500'
     return 'from-gray-500 to-gray-600'
   }
@@ -22,7 +22,7 @@ function GameEnd({ data, onPlayAgain }) {
           <CardTitle className="text-5xl mb-6">Game Over!</CardTitle>
           
           {rankedTeams.length > 0 && (
-            <div className="winner-announcement bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl p-8 shadow-2xl">
+            <div className="winner-announcement bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-8 shadow-2xl">
               <div className="text-white text-xl mb-2">🎊 Champions 🎊</div>
               <div className="text-5xl font-extrabold text-white mb-2">
                 {rankedTeams[0].name}

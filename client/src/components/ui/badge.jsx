@@ -3,16 +3,16 @@ import { cn } from "../../lib/utils"
 
 function Badge({ className, variant = "default", ...props }) {
   const variants = {
-    default: "bg-blue-600 text-white",
-    secondary: "bg-green-600 text-white",
-    destructive: "bg-red-600 text-white",
-    outline: "border-2 border-gray-400 text-gray-700 bg-white/50",
+    default: "bg-emerald-500 text-white shadow",
+    secondary: "bg-gray-100 text-gray-900",
+    destructive: "bg-red-500 text-white shadow",
+    outline: "border-2 border-emerald-500 text-emerald-700 bg-emerald-50",
   }
 
   return (
     <div
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors",
+        "inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold transition-colors",
         variants[variant],
         className
       )}

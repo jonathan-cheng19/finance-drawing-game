@@ -65,9 +65,9 @@ function GameBoard({
     : 0
 
   const getTimerColor = () => {
-    if (timeRemaining > 60) return 'from-blue-500 to-green-500'
-    if (timeRemaining > 30) return 'from-green-500 to-blue-500'
-    if (timeRemaining > 10) return 'from-blue-500 to-blue-600'
+    if (timeRemaining > 60) return 'from-emerald-500 to-teal-500'
+    if (timeRemaining > 30) return 'from-teal-500 to-cyan-500'
+    if (timeRemaining > 10) return 'from-emerald-600 to-teal-600'
     return 'from-red-500 to-red-600'
   }
 
@@ -124,7 +124,7 @@ function GameBoard({
               <CardContent className="p-0">
                 {isHost ? (
                   <div className="host-view">
-                    <div className="word-to-draw bg-gradient-to-r from-blue-600 to-blue-700 p-6">
+                    <div className="word-to-draw bg-gradient-to-r from-emerald-600 to-teal-700 p-6">
                       <h3 className="text-lg font-semibold text-white/90 mb-2">🎨 Draw this:</h3>
                       <div className="text-3xl font-bold text-white mb-2">{wordToDrawn?.word}</div>
                       <p className="text-white/80 text-sm">{wordToDrawn?.definition}</p>

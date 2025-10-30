@@ -1,0 +1,22 @@
+{
+  "name": "financial-pictionary-server",
+  "version": "1.0.0",
+  "description": "Backend server for Financial Pictionary game",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": ["pictionary", "socket.io", "multiplayer"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.6.1",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

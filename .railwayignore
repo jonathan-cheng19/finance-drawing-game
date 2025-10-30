@@ -1,0 +1,7 @@
+# Don't deploy the client folder to Railway
+client/
+.github/
+*.md
+.gitignore
+.env.local
+.env.*.local

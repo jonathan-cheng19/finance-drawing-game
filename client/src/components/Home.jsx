@@ -33,52 +33,40 @@ function Home({ onCreateRoom, onJoinRoom }) {
         <Card className="home-card fade-in max-w-2xl w-full">
           <CardHeader className="text-center space-y-4">
             <div className="flex items-center justify-center gap-3 mb-2">
-              <svg className="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-              <h1 className="text-5xl font-extrabold text-gray-900">
-                Financial Pictionary
-              </h1>
+              <div className="text-5xl">💰📈</div>
             </div>
-            <CardDescription className="text-lg text-gray-700">
-              🎨 Draw and guess finance terms with your team! Test your financial literacy while having fun.
-            </CardDescription>
+            <h1 className="text-5xl font-extrabold text-gray-900">
+              Modern Money Lab
+            </h1>
+            <p className="text-emerald-600 font-medium text-lg">Financial Pictionary</p>
+            <div className="h-1 w-24 mx-auto bg-gradient-to-r from-yellow-400 via-emerald-500 to-yellow-400 rounded-full"></div>
           </CardHeader>
 
           <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-4">
               <Button
                 size="lg"
                 variant="default"
-                className="h-32 flex-col gap-3 text-lg"
+                className="h-16 flex items-center justify-center gap-3 text-lg w-full"
                 onClick={() => setMode('create')}
               >
-                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                </svg>
-                <span>Create Game</span>
+                <span className="text-xl">🎮</span>
+                <span>Host a Game</span>
               </Button>
               <Button
                 size="lg"
-                variant="secondary"
-                className="h-32 flex-col gap-3 text-lg"
+                variant="outline"
+                className="h-16 flex items-center justify-center gap-3 text-lg w-full"
                 onClick={() => setMode('join')}
               >
-                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                </svg>
-                <span>Join Game</span>
+                <span className="text-xl">🔗</span>
+                <span>Join a Game</span>
               </Button>
             </div>
             
-            <div className="mt-6 p-6 bg-gray-100 rounded-xl border-2 border-gray-200">
-              <h3 className="text-sm font-semibold text-gray-900 mb-3">🎯 How to Play:</h3>
-              <ul className="text-sm text-gray-700 space-y-1">
-                <li>• One player draws a financial term</li>
-                <li>• Team members guess the word before time runs out</li>
-                <li>• Score points for correct guesses!</li>
-              </ul>
-            </div>
+            <p className="text-center text-emerald-600 text-sm font-medium pt-4">
+              Learn finance concepts while having fun!
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -97,10 +85,10 @@ function Home({ onCreateRoom, onJoinRoom }) {
             ← Back
           </Button>
 
-          <CardTitle className="text-center">
-            {mode === 'create' ? '🎮 Create a Game' : '🚪 Join a Game'}
+          <CardTitle className="text-center text-2xl">
+            {mode === 'create' ? '🎮 Create a Game' : '� Join a Game'}
           </CardTitle>
-          <CardDescription className="text-center">
+          <CardDescription className="text-center text-gray-600">
             {mode === 'create' 
               ? 'Start a new game session and invite your friends!' 
               : 'Enter the room code to join an existing game'}
@@ -144,7 +132,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
             <Button
               type="submit"
               size="lg"
-              variant={mode === 'create' ? 'default' : 'secondary'}
+              variant={mode === 'create' ? 'default' : 'outline'}
               className="w-full h-12"
             >
               {mode === 'create' ? '🎨 Create Room' : '🎯 Join Room'}

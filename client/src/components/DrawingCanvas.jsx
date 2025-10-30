@@ -123,7 +123,7 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
       />
 
       {isHost && (
-        <div className="drawing-controls bg-gradient-to-r from-blue-600 to-green-600 p-4">
+        <div className="drawing-controls bg-gradient-to-r from-emerald-600 to-teal-700 p-4">
           <div className="flex items-center justify-between flex-wrap gap-4">
             {/* Brush Size Control */}
             <div className="flex items-center gap-3">

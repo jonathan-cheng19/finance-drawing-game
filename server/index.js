@@ -8,11 +8,43 @@ import { WORD_POOLS, ROUND_CONFIG } from './config/gameConfig.js';
 const app = express();
 app.use(cors());
 
+// Health check endpoint for deployment platforms
+app.get('/', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    message: 'Financial Pictionary Server Running',
+    activeRooms: rooms.size,
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.get('/health', (req, res) => {
+  res.json({ status: 'healthy' });
+});
+
 const httpServer = createServer(app);
+
+// Allowed origins for CORS (production and development)
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://jonathan-cheng19.github.io',
+  'https://localhost:5173', // For local HTTPS testing
+];
+
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST"]
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      
+      if (allowedOrigins.some(allowed => origin.startsWith(allowed))) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
@@ -178,7 +210,7 @@ io.on('connection', (socket) => {
     }
 
     room.currentDrawing = drawing;
-    socket.to(roomCode).emit('drawingUpdate', { drawing });
+    io.to(roomCode).emit('drawingUpdate', { drawing });
   });
 
   // Handle guess
@@ -192,6 +224,12 @@ io.on('connection', (socket) => {
     const player = room.players.find(p => p.id === socket.id);
     if (!player) return;
 
+    // Check if player already answered correctly this round
+    if (!room.playersAnswered) room.playersAnswered = [];
+    if (room.playersAnswered.includes(socket.id)) {
+      return; // Player already answered correctly
+    }
+
     const team = room.teams.find(t => t.id === player.teamId);
     if (!team) return;
 
@@ -203,6 +241,7 @@ io.on('connection', (socket) => {
 
       player.score += points;
       team.score += points;
+      room.playersAnswered.push(socket.id);
 
       io.to(roomCode).emit('correctGuess', {
         playerName: player.name,
@@ -211,8 +250,15 @@ io.on('connection', (socket) => {
         points
       });
 
-      // Move to round break
-      startRoundBreak(roomCode);
+      // Check if all non-host players have answered
+      const nonHostPlayers = room.players.filter(p => p.id !== room.host);
+      if (room.playersAnswered.length >= nonHostPlayers.length) {
+        // All players have answered, move to round break
+        startRoundBreak(roomCode);
+      } else {
+        // Broadcast updated scores but continue round
+        broadcastRoomUpdate(roomCode);
+      }
     }
   });
 
@@ -257,6 +303,7 @@ io.on('connection', (socket) => {
     room.roundStartTime = Date.now();
     room.revealedLetters = [];
     room.currentDrawing = [];
+    room.playersAnswered = []; // Reset answered players for new round
 
     io.to(roomCode).emit('roundStarted', {
       currentRound: room.currentRound,

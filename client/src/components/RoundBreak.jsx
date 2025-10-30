@@ -28,7 +28,7 @@ function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
 
         <CardContent className="space-y-6">
           {/* Word Reveal */}
-          <div className="word-reveal bg-gradient-to-br from-blue-600 to-green-600 rounded-xl p-8 text-center">
+          <div className="word-reveal bg-gradient-to-br from-emerald-600 to-teal-700 rounded-xl p-8 text-center">
             <div className="text-white/80 text-lg mb-2">The word was:</div>
             <div className="text-5xl font-extrabold text-white mb-4">{data?.word}</div>
             <div className="text-white/90 text-lg max-w-2xl mx-auto">{data?.definition}</div>
@@ -47,7 +47,7 @@ function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
                 <div>
                   <label className="block text-gray-900 mb-2 font-medium">Select Team:</label>
                   <select
-                    className="w-full h-12 rounded-md border-2 border-gray-300 bg-white px-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full h-12 rounded-md border-2 border-gray-300 bg-white px-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     value={selectedTeam ?? ''}
                     onChange={(e) => setSelectedTeam(e.target.value ? Number(e.target.value) : null)}
                   >
