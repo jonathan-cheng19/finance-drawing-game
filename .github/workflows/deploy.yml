@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - claude/financial-pictionary-game-011CUcPBu5WchKTnPqdTUYtv
   workflow_dispatch:
 
 permissions:
