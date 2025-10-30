@@ -5,7 +5,7 @@
   align-items: center;
   min-height: 100vh;
   padding: 2rem;
-  background: url('https://cdn.dribbble.com/userupload/29172530/file/original-00a39d524871bc8259aeb8539e6ee5d9.gif') center center fixed;
+  background: url('https://cdn.dribbble.com/userupload/29172530/file/original-00a39d524871bc8259aeb8539e6ee5d9.gif') center 60% fixed;
   background-size: cover;
   position: relative;
 }
