@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './Home.css'
 
-function Home({ onCreateRoom, onJoinRoom }) {
+function Home({ onCreateRoom, onJoinRoom, isConnected }) {
   const [mode, setMode] = useState(null) // null, 'create', 'join'
   const [name, setName] = useState('')
   const [roomCode, setRoomCode] = useState('')
@@ -37,16 +37,24 @@ function Home({ onCreateRoom, onJoinRoom }) {
             <button
               className="btn btn-primary btn-large"
               onClick={() => setMode('create')}
+              disabled={!isConnected}
             >
               Create Game
             </button>
             <button
               className="btn btn-secondary btn-large"
               onClick={() => setMode('join')}
+              disabled={!isConnected}
             >
               Join Game
             </button>
           </div>
+
+          {!isConnected && (
+            <p className="text-light text-center mt-2" style={{ fontSize: '14px' }}>
+              Connecting to server...
+            </p>
+          )}
         </div>
       </div>
     )

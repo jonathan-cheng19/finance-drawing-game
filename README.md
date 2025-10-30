@@ -2,6 +2,8 @@
 
 A real-time multiplayer drawing game focused on personal finance terms.
 
+🎮 **[Play Now](https://jonathan-cheng19.github.io/finance-drawing-game)**
+
 ## Features
 
 - **Team-Based Gameplay**: Players are automatically sorted into teams with funny, alliterative finance-related names
@@ -12,7 +14,14 @@ A real-time multiplayer drawing game focused on personal finance terms.
 - **Definition Bonuses**: Between-round opportunities to earn extra points
 - **Individual Stats**: End-game summary showing team placements and individual contributions
 
-## Setup
+## Tech Stack
+
+- **Frontend**: React + Vite (deployed on GitHub Pages)
+- **Backend**: Node.js + Express + Socket.IO (deployed on Railway)
+- **Real-time**: WebSocket communication
+- **Styling**: CSS with minimalist design
+
+## Local Development
 
 1. Install dependencies:
 ```bash
@@ -28,6 +37,10 @@ npm run dev
    - Game: http://localhost:5173
    - Server: http://localhost:3000
 
+## Deployment
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
+
 ## How to Play
 
 1. **Host**: Create a game room and become the drawer
@@ -36,10 +49,3 @@ npm run dev
 4. **Draw & Guess**: Host draws finance terms, teams compete to guess first
 5. **Score**: Faster guesses = more points
 6. **Win**: Team with the most points after 3 rounds wins!
-
-## Tech Stack
-
-- **Frontend**: React + Vite
-- **Backend**: Node.js + Express + Socket.IO
-- **Real-time**: WebSocket communication
-- **Styling**: CSS with minimalist design
