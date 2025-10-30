@@ -57,12 +57,19 @@ const getRoom = (roomCode) => rooms.get(roomCode);
 // Helper function to broadcast room update
 const broadcastRoomUpdate = (roomCode) => {
   const room = getRoom(roomCode);
-  if (room) {
+  if (!room) {
+    console.log(`❌ Cannot broadcast room update - room ${roomCode} not found`);
+    return;
+  }
+  
+  try {
     // Create deep copies to ensure React detects changes
     const teamsCopy = JSON.parse(JSON.stringify(room.teams));
     const playersCopy = JSON.parse(JSON.stringify(room.players));
     
-    console.log('Broadcasting room update with teams:', teamsCopy.map(t => `${t.name}: ${t.score}`).join(', '));
+    console.log(`📡 Broadcasting room update to ${roomCode}:`);
+    console.log(`   Teams: ${teamsCopy.map(t => `${t.name}: ${t.score}`).join(', ')}`);
+    console.log(`   Players: ${playersCopy.map(p => `${p.name}: ${p.score}`).join(', ')}`);
     
     io.to(roomCode).emit('roomUpdate', {
       teams: teamsCopy,
@@ -71,6 +78,8 @@ const broadcastRoomUpdate = (roomCode) => {
       currentRound: room.currentRound,
       scores: room.scores
     });
+  } catch (error) {
+    console.error(`❌ Error broadcasting room update:`, error);
   }
 };
 
@@ -198,6 +207,9 @@ io.on('connection', (socket) => {
         spacePositions.push(i);
       }
     }
+
+    console.log(`🎮 Starting game with word: "${room.currentWord}" (length: ${room.currentWord.length})`);
+    console.log(`   Space positions: [${spacePositions.join(', ')}]`);
 
     io.to(roomCode).emit('gameStarted', {
       currentRound: room.currentRound,
@@ -352,6 +364,9 @@ io.on('connection', (socket) => {
         spacePositions.push(i);
       }
     }
+
+    console.log(`🎮 Starting round ${room.currentRound} with word: "${room.currentWord}" (length: ${room.currentWord.length})`);
+    console.log(`   Space positions: [${spacePositions.join(', ')}]`);
 
     io.to(roomCode).emit('roundStarted', {
       currentRound: room.currentRound,
