@@ -21,36 +21,37 @@ function RoundBreak({ isHost, data, teams, players, onAwardBonus, onNextRound })
 
   return (
     <div className="round-break">
-      <div className="max-w-7xl w-full mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <div className="max-w-7xl w-full mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main Content */}
           <div className="lg:col-span-2">
       <Card className="round-break-card glass-card fade-in w-full">
-        <CardHeader className="text-center p-10">
-          <div className="text-6xl mb-4">🎉</div>
-          <CardTitle className="text-4xl">Round {data?.currentRound} Complete!</CardTitle>
+        <CardHeader className="text-center p-12">
+          <div className="text-7xl mb-6">🎉</div>
+          <CardTitle className="text-5xl mb-4">Round {data?.currentRound} Complete!</CardTitle>
+          <p className="text-gray-600 text-lg">Great job everyone!</p>
         </CardHeader>
 
-        <CardContent className="space-y-8 p-10">
+        <CardContent className="space-y-10 p-12">
           {/* Word Reveal */}
-          <div className="word-reveal bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-8 text-center">
-            <div className="text-white/90 text-lg mb-2">The word was:</div>
-            <div className="text-5xl font-extrabold text-white mb-4">{data?.word}</div>
-            <div className="text-white text-lg max-w-2xl mx-auto">{data?.definition}</div>
+          <div className="word-reveal bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-10 text-center">
+            <div className="text-white/90 text-xl mb-4">The word was:</div>
+            <div className="text-6xl font-extrabold text-white">{data?.word}</div>
           </div>
 
             {/* Bonus Points Section (Host Only) */}
           {isHost && (
-            <div className="bonus-section bg-white/80 backdrop-blur-sm rounded-xl p-6 border-2 border-blue-300">
+            <div className="bonus-section bg-white/80 backdrop-blur-sm rounded-xl p-8 border-2 border-blue-300 mt-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2">
                 <span>✨</span> Award Bonus Points
               </h3>
-              <p className="text-gray-700 mb-6">
+              <p className="text-gray-700 mb-8">
                 Teams can earn bonus points by correctly defining the term!
-              </p>              <div className="space-y-4">
+              </p>
+              <div className="space-y-6">
                 {/* Team Selector */}
                 <div>
-                  <label className="block text-gray-900 mb-2 font-medium">Select Team:</label>
+                  <label className="block text-gray-900 mb-3 font-medium text-lg">Select Team:</label>
                   <select
                     className="w-full h-12 rounded-md border-2 border-blue-300 bg-white px-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={selectedTeam ?? ''}
@@ -67,8 +68,8 @@ function RoundBreak({ isHost, data, teams, players, onAwardBonus, onNextRound })
 
                 {/* Points Selector */}
                 <div>
-                  <label className="block text-gray-900 mb-2 font-medium">Points:</label>
-                  <div className="grid grid-cols-4 gap-3">
+                  <label className="block text-gray-900 mb-3 font-medium text-lg">Points:</label>
+                  <div className="grid grid-cols-4 gap-4">
                     {[50, 100, 150, 200].map((points) => (
                       <Button
                         key={points}
@@ -95,14 +96,14 @@ function RoundBreak({ isHost, data, teams, players, onAwardBonus, onNextRound })
 
           {/* Waiting Message (Non-Host) */}
           {!isHost && (
-            <div className="text-center py-6">
+            <div className="text-center py-10">
               <LoadingAnimation message="Host is awarding bonus points for correct definitions..." />
             </div>
           )}
 
           {/* Next Round Button (Host Only) */}
           {isHost && (
-            <div className="pt-4">
+            <div className="pt-8">
               <Button
                 size="lg"
                 className="w-full h-14 text-lg bg-blue-500 hover:bg-blue-600 text-white pulse"
@@ -115,8 +116,8 @@ function RoundBreak({ isHost, data, teams, players, onAwardBonus, onNextRound })
 
           {/* Waiting for Host (Non-Host) */}
           {!isHost && (
-            <div className="text-center py-4">
-              <p className="text-gray-700">Waiting for host to continue...</p>
+            <div className="text-center py-8">
+              <p className="text-gray-700 text-lg">Waiting for host to continue...</p>
             </div>
           )}
         </CardContent>
@@ -124,7 +125,7 @@ function RoundBreak({ isHost, data, teams, players, onAwardBonus, onNextRound })
           </div>
           
           {/* Leaderboard Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 mt-8 lg:mt-0">
             <Leaderboard teams={teams} players={players} />
           </div>
         </div>
