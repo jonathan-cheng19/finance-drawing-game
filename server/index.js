@@ -303,12 +303,16 @@ io.on('connection', (socket) => {
       const nonHostPlayers = room.players.filter(p => p.id !== room.host);
       console.log(`  Players answered: ${room.playersAnswered.length}/${nonHostPlayers.length}`);
       if (room.playersAnswered.length >= nonHostPlayers.length) {
-        // All players have answered, move to round break after a brief delay
-        // to ensure the score update is received by all clients
-        console.log(`  All players answered! Moving to round break in 500ms...`);
+        // All players have answered, notify clients and move to round break after a delay
+        // to ensure the score update is received and rendered by all clients
+        console.log(`  All players answered! Moving to round break in 1500ms...`);
+        
+        // Notify all clients that round is ending soon
+        io.to(roomCode).emit('roundEnding', { delay: 1500 });
+        
         setTimeout(() => {
           startRoundBreak(roomCode);
-        }, 500);
+        }, 1500);
       }
     }
   });
