@@ -1,6 +1,56 @@
 .leaderboard {
   position: sticky;
   top: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes overtake {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+  25% {
+    transform: scale(1.08) rotate(-2deg);
+    box-shadow: 0 20px 25px -5px rgba(255, 215, 0, 0.5);
+  }
+  50% {
+    transform: scale(1.08) rotate(2deg);
+    box-shadow: 0 20px 25px -5px rgba(255, 215, 0, 0.5);
+  }
+  75% {
+    transform: scale(1.08) rotate(-2deg);
+    box-shadow: 0 20px 25px -5px rgba(255, 215, 0, 0.5);
+  }
+}
+
+.overtake-animation {
+  animation: overtake 0.8s ease-in-out;
+  position: relative;
+  z-index: 10;
+}
+
+.overtake-animation::after {
+  content: '🎉';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 2rem;
+  animation: celebrate 0.8s ease-in-out;
+}
+
+@keyframes celebrate {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.5) rotate(180deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 0;
+  }
 }
 
 .team-score-card {

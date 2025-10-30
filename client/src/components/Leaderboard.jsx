@@ -1,18 +1,41 @@
-import { useEffect } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Badge } from './ui/badge'
 import AnimatedNumber from './AnimatedNumber'
 import './Leaderboard.css'
 
 function Leaderboard({ teams, players, currentPlayer }) {
-  // Log when teams prop changes
-  useEffect(() => {
-    console.log('🏆 Leaderboard received new teams:', teams.map(t => `${t.name}: ${t.score}`).join(', '))
-    console.log('   Full teams data:', teams)
-  }, [teams])
+  const [overtakingTeam, setOvertakingTeam] = useState(null)
+  const previousRankings = useRef({})
 
   // Sort teams by score
   const sortedTeams = [...teams].sort((a, b) => b.score - a.score)
+
+  // Track position changes and trigger overtake animation
+  useEffect(() => {
+    console.log('🏆 Leaderboard received new teams:', teams.map(t => `${t.name}: ${t.score}`).join(', '))
+    console.log('   Full teams data:', teams)
+
+    // Check for position changes
+    const currentRankings = {}
+    sortedTeams.forEach((team, index) => {
+      currentRankings[team.id] = index
+      
+      // Check if this team moved up
+      if (previousRankings.current[team.id] !== undefined) {
+        const oldRank = previousRankings.current[team.id]
+        const newRank = index
+        
+        if (newRank < oldRank) {
+          console.log(`🎉 ${team.name} overtook! Old rank: ${oldRank + 1}, New rank: ${newRank + 1}`)
+          setOvertakingTeam(team.id)
+          setTimeout(() => setOvertakingTeam(null), 2000)
+        }
+      }
+    })
+
+    previousRankings.current = currentRankings
+  }, [teams, sortedTeams])
 
   const getRankEmoji = (index) => {
     if (index === 0) return '🥇'
@@ -37,11 +60,16 @@ function Leaderboard({ teams, players, currentPlayer }) {
       </CardHeader>
 
       <CardContent className="space-y-4 p-6">
-        {sortedTeams.map((team, index) => (
-          <div
-            key={team.id}
-            className={`team-score-card bg-gradient-to-br ${teamColors[index % teamColors.length]} rounded-lg p-5 shadow-lg transform transition-all hover:scale-102`}
-          >
+        {sortedTeams.map((team, index) => {
+          const isOvertaking = overtakingTeam === team.id
+          
+          return (
+            <div
+              key={team.id}
+              className={`team-score-card bg-gradient-to-br ${teamColors[team.id % teamColors.length]} rounded-lg p-5 shadow-lg transform transition-all hover:scale-102 ${
+                isOvertaking ? 'overtake-animation' : ''
+              }`}
+            >
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-2">
                 <div className="text-2xl">{getRankEmoji(index)}</div>
@@ -81,7 +109,8 @@ function Leaderboard({ teams, players, currentPlayer }) {
               })}
             </div>
           </div>
-        ))}
+          )
+        })}
       </CardContent>
     </Card>
   )

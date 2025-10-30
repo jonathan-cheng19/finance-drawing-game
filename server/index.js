@@ -282,9 +282,10 @@ io.on('connection', (socket) => {
       team.score += points;
       room.playersAnswered.push(socket.id);
 
-      console.log(`✓ ${player.name} (${socket.id}) scored ${points} points! Total: ${player.score}`);
-      console.log(`  Team ${team.name} now has ${team.score} points`);
-      console.log(`  All team scores:`, room.teams.map(t => `${t.name}: ${t.score}`).join(', '));
+      console.log(`✓ ${player.name} (${socket.id}) scored ${points} points! Player total: ${player.score}`);
+      console.log(`  Team ${team.name} (ID: ${team.id}) now has ${team.score} points`);
+      console.log(`  All team scores:`, room.teams.map(t => `${t.name} (ID: ${t.id}): ${t.score}`).join(', '));
+      console.log(`  All player scores:`, room.players.map(p => `${p.name}: ${p.score}`).join(', '));
 
       // Send correct guess notification only to the player who guessed
       console.log(`  Sending correctGuess event to socket: ${socket.id}`);
