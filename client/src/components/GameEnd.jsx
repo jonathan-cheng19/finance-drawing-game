@@ -8,7 +8,7 @@ function GameEnd({ data, onPlayAgain }) {
   const players = data?.players || []
 
   const getRankColor = (index) => {
-    if (index === 0) return 'from-blue-500 to-blue-600'
+    if (index === 0) return 'from-red-500 to-red-600'
     if (index === 1) return 'from-green-500 to-green-600'
     if (index === 2) return 'from-orange-500 to-orange-600'
     return 'from-purple-500 to-purple-600'

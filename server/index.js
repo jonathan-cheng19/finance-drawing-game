@@ -410,8 +410,14 @@ function startLetterReveal(roomCode) {
           letter: word[position]
         });
 
+        console.log(`📝 Revealing letter at position ${position}: "${word[position]}" for word "${word}"`);
+        console.log(`   Total revealed: ${room.revealedLetters.length}/${word.length}`);
+
+        // Deep copy to ensure React detects changes
+        const revealedLettersCopy = JSON.parse(JSON.stringify(room.revealedLetters));
+        
         io.to(roomCode).emit('letterRevealed', {
-          revealedLetters: room.revealedLetters
+          revealedLetters: revealedLettersCopy
         });
       }
     }
