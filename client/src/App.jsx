@@ -28,7 +28,7 @@ function App() {
   const [gameEndData, setGameEndData] = useState(null)
   const [isConnected, setIsConnected] = useState(false)
   const [totalRounds, setTotalRounds] = useState(6)
-  const [correctGuessData, setCorrectGuessData] = useState(null)
+  // Removed correctGuessData - no longer using overlay
 
   useEffect(() => {
     // Connection status
@@ -65,7 +65,6 @@ function App() {
       setRevealedLetters([])
       setDrawing([])
       setTotalRounds(data.totalRounds || 6)
-      setCorrectGuessData(null)
     })
 
     // Word to draw (host only)
@@ -83,19 +82,17 @@ function App() {
       setRevealedLetters(data.revealedLetters)
     })
 
-    // Correct guess
+    // Correct guess - just log it, no overlay
     socket.on('correctGuess', (data) => {
       console.log('🎉 Received correctGuess event:', data)
       console.log('Current playerName:', playerName)
-      // Show overlay with correct guess notification - stays until round ends
-      setCorrectGuessData(data)
+      // Points are updated via roomUpdate event
     })
 
     // Round break
     socket.on('roundBreak', (data) => {
       setGameState('roundBreak')
       setRoundBreakData(data)
-      setCorrectGuessData(null) // Clear correct guess overlay
     })
 
     // Round started
@@ -243,7 +240,6 @@ function App() {
           playerName={playerName}
           onDraw={sendDrawing}
           onGuess={sendGuess}
-          correctGuessData={correctGuessData}
         />
       )}
 

@@ -5,7 +5,6 @@ import { Button } from './ui/button'
 import { Input } from './ui/input'
 import DrawingCanvas from './DrawingCanvas'
 import Leaderboard from './Leaderboard'
-import AnimatedNumber from './AnimatedNumber'
 import './GameBoard.css'
 
 function GameBoard({
@@ -21,8 +20,7 @@ function GameBoard({
   players,
   playerName,
   onDraw,
-  onGuess,
-  correctGuessData
+  onGuess
 }) {
   const [guess, setGuess] = useState('')
   const [timeRemaining, setTimeRemaining] = useState(0)
@@ -85,31 +83,8 @@ function GameBoard({
 
   const isTimerLow = timeRemaining <= 10 && timeRemaining > 0
 
-  // Log when correctGuessData changes
-  useEffect(() => {
-    if (correctGuessData) {
-      console.log('🎊 GameBoard: Showing correct guess overlay:', correctGuessData)
-    }
-  }, [correctGuessData])
-
   return (
     <div className={`game-board min-h-screen py-12 px-8 ${isTimerLow ? 'timer-warning' : ''}`}>
-      {/* Correct Guess Overlay */}
-      {correctGuessData && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center correct-overlay-backdrop animate-fade-in-backdrop">
-          <div className="correct-guess-overlay animate-fade-in-overlay">
-            <div className="text-7xl font-extrabold mb-6" style={{ color: '#60a5fa' }}>
-              ✓ CORRECT!
-            </div>
-            <div className="text-3xl text-gray-700 mb-4">
-              You scored
-            </div>
-            <div className="text-6xl font-extrabold" style={{ color: '#60a5fa' }}>
-              <AnimatedNumber value={correctGuessData.points} duration={1000} /> points!
-            </div>
-          </div>
-        </div>
-      )}
       
       <div className="game-container max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
