@@ -14,15 +14,15 @@ function Leaderboard({ teams, players, currentPlayer }) {
   }
 
   const teamColors = [
-    'from-emerald-500 to-teal-600',
-    'from-teal-500 to-cyan-600',
-    'from-gray-400 to-gray-500',
-    'from-emerald-600 to-green-600',
+    'from-blue-500 to-blue-600',
+    'from-green-500 to-green-600',
+    'from-orange-500 to-orange-600',
+    'from-red-500 to-red-600',
   ]
 
   return (
-    <Card className="leaderboard w-full">
-      <CardHeader className="pb-3">
+    <Card className="leaderboard glass-card w-full">
+      <CardHeader className="pb-3 p-6">
         <CardTitle className="text-xl flex items-center gap-2">
           <span>🏆</span> Leaderboard
         </CardTitle>

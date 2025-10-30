@@ -11,17 +11,17 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
   const teamColors = [
     'from-blue-500 to-blue-600',
     'from-green-500 to-green-600',
-    'from-gray-600 to-gray-700',
-    'from-blue-600 to-blue-700',
+    'from-orange-500 to-orange-600',
+    'from-red-500 to-red-600',
   ]
 
   return (
     <div className="waiting-room">
-      <Card className="waiting-room-card fade-in max-w-4xl w-full">
-        <CardHeader>
+      <Card className="waiting-room-card glass-card fade-in max-w-4xl w-full">
+        <CardHeader className="p-8">
           <div className="flex items-center justify-between flex-wrap gap-6">
             <CardTitle className="text-3xl">🎮 Waiting Room</CardTitle>
-            <div className="flex items-center gap-2 bg-white/90 px-4 py-2 rounded-lg border-2 border-gray-300">
+            <div className="flex items-center gap-2 bg-white/90 px-4 py-2 rounded-lg border-2 border-blue-600">
               <span className="text-sm text-gray-600 font-semibold">Room Code:</span>
               <span className="text-2xl font-bold tracking-widest text-blue-600">{roomCode}</span>
             </div>
@@ -33,7 +33,7 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-semibold text-gray-900">Players Waiting</h3>
-                <Badge variant="secondary" className="text-base px-3 py-1">
+                <Badge variant="secondary" className="text-base px-3 py-1 bg-blue-100 text-blue-700">
                   {players.length} {players.length === 1 ? 'Player' : 'Players'}
                 </Badge>
               </div>
@@ -42,7 +42,7 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
                 {players.map((player) => (
                   <div
                     key={player.id}
-                    className="player-chip bg-white/80 backdrop-blur-sm border-2 border-gray-300 rounded-lg p-4 text-center hover:scale-105 transition-transform hover:border-blue-500"
+                    className="player-chip bg-white/90 backdrop-blur-sm border-2 border-blue-300 rounded-lg p-4 text-center hover:scale-105 transition-transform hover:border-blue-600 hover:shadow-lg"
                   >
                     <div className="text-gray-900 font-medium">{player.name}</div>
                   </div>
@@ -70,7 +70,7 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
                   >
                     <div className="flex items-center justify-between mb-3">
                       <h4 className="text-xl font-bold text-white">{team.name}</h4>
-                      <Badge variant="outline" className="bg-white/20">
+                      <Badge variant="outline" className="bg-white/30 text-white border-white/50">
                         {team.players.length} {team.players.length === 1 ? 'member' : 'members'}
                       </Badge>
                     </div>
@@ -78,7 +78,7 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
                       {team.players.map((player) => (
                         <div
                           key={player.id}
-                          className="team-member bg-white/90 backdrop-blur-sm rounded-lg px-5 py-3 text-gray-900 font-medium border-2 border-gray-200 shadow-sm"
+                          className="team-member bg-white/95 backdrop-blur-sm rounded-lg px-5 py-3 text-gray-900 font-medium shadow-sm"
                         >
                           {player.name}
                         </div>
@@ -91,11 +91,11 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
           )}
 
           {unassignedPlayers.length > 0 && hasTeams && (
-            <div className="bg-purple-900/30 rounded-lg p-4 border border-purple-500/30">
-              <p className="text-gray-800 font-semibold mb-3">🆕 New players joined:</p>
+            <div className="bg-blue-100/80 rounded-lg p-4 border-2 border-blue-300">
+              <p className="text-gray-900 font-semibold mb-3">🆕 New players joined:</p>
               <div className="flex flex-wrap gap-2">
                 {unassignedPlayers.map((player) => (
-                  <Badge key={player.id} variant="outline" className="text-base px-3 py-1">
+                  <Badge key={player.id} variant="outline" className="text-base px-3 py-1 bg-white border-blue-400 text-blue-700">
                     {player.name}
                   </Badge>
                 ))}
@@ -109,7 +109,7 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
                 <>
                   <Button
                     size="lg"
-                    className="w-full h-14 text-lg"
+                    className="w-full h-14 text-lg bg-blue-600 hover:bg-blue-700 text-white"
                     onClick={onAssignTeams}
                     disabled={players.length < 2}
                   >
@@ -124,8 +124,7 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
               ) : (
                 <Button
                   size="lg"
-                  variant="secondary"
-                  className="w-full h-14 text-lg pulse"
+                  className="w-full h-14 text-lg bg-green-600 hover:bg-green-700 text-white pulse"
                   onClick={onStartGame}
                 >
                   🚀 Start Game

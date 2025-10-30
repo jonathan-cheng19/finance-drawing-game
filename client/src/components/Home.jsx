@@ -30,24 +30,23 @@ function Home({ onCreateRoom, onJoinRoom }) {
   if (!mode) {
     return (
       <div className="home">
-        <Card className="home-card fade-in max-w-2xl w-full">
-          <CardHeader className="text-center space-y-4">
+        <Card className="home-card glass-card fade-in max-w-2xl w-full">
+          <CardHeader className="text-center space-y-4 p-10">
             <div className="flex items-center justify-center gap-3 mb-2">
               <div className="text-5xl">💰📈</div>
             </div>
             <h1 className="text-5xl font-extrabold text-gray-900">
               PPM Pictionary
             </h1>
-            <p className="text-emerald-600 font-medium text-lg">Financial Drawing Game</p>
-            <div className="h-1 w-24 mx-auto bg-gradient-to-r from-yellow-400 via-emerald-500 to-yellow-400 rounded-full"></div>
+            <p className="text-blue-600 font-medium text-lg">Financial Drawing Game</p>
           </CardHeader>
 
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-6 p-10">
             <div className="grid grid-cols-1 gap-4">
               <Button
                 size="lg"
                 variant="default"
-                className="h-16 flex items-center justify-center gap-3 text-lg w-full"
+                className="h-16 flex items-center justify-center gap-3 text-lg w-full bg-blue-600 hover:bg-blue-700 text-white"
                 onClick={() => setMode('create')}
               >
                 <span className="text-xl">🎮</span>
@@ -56,7 +55,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
               <Button
                 size="lg"
                 variant="outline"
-                className="h-16 flex items-center justify-center gap-3 text-lg w-full"
+                className="h-16 flex items-center justify-center gap-3 text-lg w-full border-2 border-blue-600 text-blue-600 hover:bg-blue-50"
                 onClick={() => setMode('join')}
               >
                 <span className="text-xl">🔗</span>
@@ -64,7 +63,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
               </Button>
             </div>
             
-            <p className="text-center text-emerald-600 text-sm font-medium pt-4">
+            <p className="text-center text-blue-600 text-sm font-medium pt-4">
               Learn finance concepts while having fun!
             </p>
           </CardContent>
@@ -75,8 +74,8 @@ function Home({ onCreateRoom, onJoinRoom }) {
 
   return (
     <div className="home">
-      <Card className="home-card fade-in max-w-md w-full">
-        <CardHeader>
+      <Card className="home-card glass-card fade-in max-w-md w-full">
+        <CardHeader className="p-8">
           <Button
             variant="ghost"
             className="mb-2 w-fit text-gray-600 hover:text-gray-900"
@@ -86,7 +85,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
           </Button>
 
           <CardTitle className="text-center text-2xl">
-            {mode === 'create' ? '🎮 Create a Game' : '� Join a Game'}
+            {mode === 'create' ? '🎮 Create a Game' : '🔗 Join a Game'}
           </CardTitle>
           <CardDescription className="text-center text-gray-600">
             {mode === 'create' 
@@ -95,7 +94,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
           </CardDescription>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-3">
               <label htmlFor="name" className="text-sm font-medium text-gray-900">
@@ -132,8 +131,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
             <Button
               type="submit"
               size="lg"
-              variant={mode === 'create' ? 'default' : 'outline'}
-              className="w-full h-12"
+              className={`w-full h-12 ${mode === 'create' ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'border-2 border-blue-600 text-blue-600 hover:bg-blue-50 bg-transparent'}`}
             >
               {mode === 'create' ? '🎨 Create Room' : '🎯 Join Room'}
             </Button>

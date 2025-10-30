@@ -8,21 +8,21 @@ function GameEnd({ data, onPlayAgain }) {
   const players = data?.players || []
 
   const getRankColor = (index) => {
-    if (index === 0) return 'from-emerald-500 to-teal-600'
-    if (index === 1) return 'from-teal-500 to-cyan-600'
-    if (index === 2) return 'from-gray-400 to-gray-500'
+    if (index === 0) return 'from-blue-500 to-blue-600'
+    if (index === 1) return 'from-green-500 to-green-600'
+    if (index === 2) return 'from-orange-500 to-orange-600'
     return 'from-gray-500 to-gray-600'
   }
 
   return (
     <div className="game-end">
-      <Card className="game-end-card fade-in max-w-4xl w-full">
-        <CardHeader className="text-center pb-8">
+      <Card className="game-end-card glass-card fade-in max-w-4xl w-full">
+        <CardHeader className="text-center pb-8 p-10">
           <div className="text-8xl mb-4 animate-bounce">🏆</div>
           <CardTitle className="text-5xl mb-6">Game Over!</CardTitle>
           
           {rankedTeams.length > 0 && (
-            <div className="winner-announcement bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-8 shadow-2xl">
+            <div className="winner-announcement bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-8 shadow-2xl">
               <div className="text-white text-xl mb-2">🎊 Champions 🎊</div>
               <div className="text-5xl font-extrabold text-white mb-2">
                 {rankedTeams[0].name}
@@ -34,7 +34,7 @@ function GameEnd({ data, onPlayAgain }) {
           )}
         </CardHeader>
 
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-6 p-10">
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">Final Standings</h2>
             <div className="space-y-3">
@@ -82,7 +82,7 @@ function GameEnd({ data, onPlayAgain }) {
           <div className="pt-6">
             <Button
               size="lg"
-              className="w-full h-16 text-xl"
+              className="w-full h-16 text-xl bg-blue-600 hover:bg-blue-700 text-white"
               onClick={onPlayAgain}
             >
               🎮 Play Again

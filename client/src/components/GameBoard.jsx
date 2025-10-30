@@ -79,15 +79,15 @@ function GameBoard({
     <div className={`game-board min-h-screen py-12 px-8 ${isTimerLow ? 'timer-warning' : ''}`}>
       {/* Correct Guess Overlay */}
       {correctGuessData && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center" style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
-          <div className="correct-guess-overlay animate-bounce-in">
-            <div className="text-6xl font-extrabold text-green-400 mb-4 drop-shadow-lg">
+        <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+          <div className="correct-guess-overlay animate-fade-in-overlay">
+            <div className="text-6xl font-extrabold text-green-600 mb-4">
               ✓ CORRECT!
             </div>
-            <div className="text-4xl font-bold text-white mb-2">
+            <div className="text-4xl font-bold text-gray-900 mb-2">
               {correctGuessData.playerName}
             </div>
-            <div className="text-3xl font-semibold text-green-300">
+            <div className="text-3xl font-semibold text-green-600">
               +{correctGuessData.points} points
             </div>
           </div>
@@ -99,15 +99,15 @@ function GameBoard({
           {/* Main Game Area */}
           <div className="lg:col-span-2 space-y-8">
             {/* Header Card */}
-            <Card>
+            <Card className="glass-card">
               <CardContent className="p-10">
                 <div className="flex items-center justify-between flex-wrap gap-4">
                     <div>
                     <div className="flex items-center gap-3 mb-3">
-                      <Badge variant="default" className="text-lg px-4 py-2">
+                      <Badge variant="default" className="text-lg px-4 py-2 bg-blue-600 hover:bg-blue-700">
                         Round {currentRound}/{totalRounds}
                       </Badge>
-                      <span className="text-gray-700 text-base">{roundConfig?.description}</span>
+                      <span className="text-gray-900 text-base font-medium">{roundConfig?.description}</span>
                     </div>
                   </div>
                   <div className="flex flex-col items-end gap-2">
@@ -126,7 +126,7 @@ function GameBoard({
             </Card>
 
             {/* Word Display */}
-            <Card>
+            <Card className="glass-card">
               <CardContent className="p-10">
                 <div className="flex items-center justify-center gap-3 flex-wrap">
                   {wordDisplay.map((letter, idx) => (
@@ -139,14 +139,14 @@ function GameBoard({
             </Card>
 
             {/* Drawing Canvas */}
-            <Card className="overflow-hidden">
+            <Card className="glass-card overflow-hidden">
               <CardContent className="p-0">
                 {isHost ? (
                   <div className="host-view">
-                    <div className="word-to-draw bg-gradient-to-r from-emerald-600 to-teal-700 p-6">
-                      <h3 className="text-lg font-semibold text-white/90 mb-2">🎨 Draw this:</h3>
+                    <div className="word-to-draw bg-gradient-to-r from-blue-600 to-blue-700 p-6">
+                      <h3 className="text-lg font-semibold text-white mb-2">🎨 Draw this:</h3>
                       <div className="text-3xl font-bold text-white mb-2">{wordToDrawn?.word}</div>
-                      <p className="text-white/80 text-sm">{wordToDrawn?.definition}</p>
+                      <p className="text-white/90 text-sm">{wordToDrawn?.definition}</p>
                     </div>
                     <DrawingCanvas onDraw={onDraw} drawing={drawing} isHost={true} />
                   </div>
@@ -158,7 +158,7 @@ function GameBoard({
 
             {/* Guess Input (for players) */}
             {!isHost && (
-              <Card>
+              <Card className="glass-card">
                 <CardContent className="p-10">
                   <form onSubmit={handleGuessSubmit} className="flex gap-4">
                     <Input
@@ -169,7 +169,7 @@ function GameBoard({
                       onChange={(e) => setGuess(e.target.value)}
                       autoComplete="off"
                     />
-                    <Button type="submit" size="lg" className="px-8">
+                    <Button type="submit" size="lg" className="px-8 bg-blue-600 hover:bg-blue-700 text-white">
                       Guess!
                     </Button>
                   </form>

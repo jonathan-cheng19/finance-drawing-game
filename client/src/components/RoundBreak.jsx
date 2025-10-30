@@ -3,6 +3,7 @@ import { Button } from './ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Badge } from './ui/badge'
 import LoadingAnimation from './LoadingAnimation'
+import Leaderboard from './Leaderboard'
 import './RoundBreak.css'
 
 function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
@@ -16,27 +17,31 @@ function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
     }
   }
 
-  const isLastRound = data?.currentRound === 3
+  const isLastRound = data?.currentRound === 6
 
   return (
     <div className="round-break">
-      <Card className="round-break-card fade-in max-w-3xl w-full">
-        <CardHeader className="text-center">
+      <div className="max-w-7xl w-full mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2">
+      <Card className="round-break-card glass-card fade-in w-full">
+        <CardHeader className="text-center p-8">
           <div className="text-6xl mb-4">🎉</div>
           <CardTitle className="text-4xl">Round {data?.currentRound} Complete!</CardTitle>
         </CardHeader>
 
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-6 p-8">
           {/* Word Reveal */}
-          <div className="word-reveal bg-gradient-to-br from-emerald-600 to-teal-700 rounded-xl p-8 text-center">
-            <div className="text-white/80 text-lg mb-2">The word was:</div>
+          <div className="word-reveal bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-8 text-center">
+            <div className="text-white/90 text-lg mb-2">The word was:</div>
             <div className="text-5xl font-extrabold text-white mb-4">{data?.word}</div>
-            <div className="text-white/90 text-lg max-w-2xl mx-auto">{data?.definition}</div>
+            <div className="text-white text-lg max-w-2xl mx-auto">{data?.definition}</div>
           </div>
 
             {/* Bonus Points Section (Host Only) */}
           {isHost && (
-            <div className="bonus-section bg-gray-100 rounded-xl p-6 border border-gray-200">
+            <div className="bonus-section bg-white/80 backdrop-blur-sm rounded-xl p-6 border-2 border-blue-300">
               <h3 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2">
                 <span>✨</span> Award Bonus Points
               </h3>
@@ -47,7 +52,7 @@ function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
                 <div>
                   <label className="block text-gray-900 mb-2 font-medium">Select Team:</label>
                   <select
-                    className="w-full h-12 rounded-md border-2 border-gray-300 bg-white px-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full h-12 rounded-md border-2 border-blue-300 bg-white px-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={selectedTeam ?? ''}
                     onChange={(e) => setSelectedTeam(e.target.value ? Number(e.target.value) : null)}
                   >
@@ -67,9 +72,8 @@ function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
                     {[50, 100, 150, 200].map((points) => (
                       <Button
                         key={points}
-                        variant={bonusPoints === points ? 'default' : 'outline'}
                         onClick={() => setBonusPoints(points)}
-                        className="h-12"
+                        className={`h-12 ${bonusPoints === points ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-white border-2 border-blue-300 text-blue-600 hover:bg-blue-50'}`}
                       >
                         {points}
                       </Button>
@@ -78,9 +82,8 @@ function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
                 </div>
 
                 <Button
-                  variant="secondary"
                   size="lg"
-                  className="w-full h-14 text-lg"
+                  className="w-full h-14 text-lg bg-blue-600 hover:bg-blue-700 text-white"
                   onClick={handleAwardBonus}
                   disabled={selectedTeam === null}
                 >
@@ -102,7 +105,7 @@ function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
             <div className="pt-4">
               <Button
                 size="lg"
-                className="w-full h-14 text-lg pulse"
+                className="w-full h-14 text-lg bg-green-600 hover:bg-green-700 text-white pulse"
                 onClick={onNextRound}
               >
                 {isLastRound ? '🏆 View Results' : `🚀 Start Round ${data?.currentRound + 1}`}
@@ -118,6 +121,14 @@ function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
           )}
         </CardContent>
       </Card>
+          </div>
+          
+          {/* Leaderboard Sidebar */}
+          <div className="lg:col-span-1">
+            <Leaderboard teams={teams} />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
