@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
+import { Button } from './ui/button'
 import './DrawingCanvas.css'
 
 function DrawingCanvas({ onDraw, drawing, isHost }) {
@@ -7,6 +8,17 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
   const [currentPath, setCurrentPath] = useState([])
   const [color, setColor] = useState('#000000')
   const [brushSize, setBrushSize] = useState(3)
+
+  const colors = [
+    { value: '#000000', name: 'Black' },
+    { value: '#FF0000', name: 'Red' },
+    { value: '#00FF00', name: 'Green' },
+    { value: '#0000FF', name: 'Blue' },
+    { value: '#FFFF00', name: 'Yellow' },
+    { value: '#FF00FF', name: 'Magenta' },
+    { value: '#00FFFF', name: 'Cyan' },
+    { value: '#FFFFFF', name: 'White' },
+  ]
 
   // Drawing on canvas
   useEffect(() => {
@@ -97,51 +109,61 @@ function DrawingCanvas({ onDraw, drawing, isHost }) {
   }
 
   return (
-    <div className="drawing-canvas-container">
+    <div className="drawing-canvas-container bg-white rounded-lg overflow-hidden">
       <canvas
         ref={canvasRef}
         width={800}
         height={500}
-        className="drawing-canvas"
+        className="drawing-canvas w-full"
         onMouseDown={startDrawing}
         onMouseMove={draw}
         onMouseUp={stopDrawing}
         onMouseLeave={stopDrawing}
-        style={{ cursor: isHost ? 'crosshair' : 'default' }}
+        style={{ cursor: isHost ? 'crosshair' : 'default', display: 'block' }}
       />
 
       {isHost && (
-        <div className="drawing-controls">
-          <div className="control-group">
-            <label>Brush Size:</label>
-            <input
-              type="range"
-              min="1"
-              max="20"
-              value={brushSize}
-              onChange={(e) => setBrushSize(Number(e.target.value))}
-              className="brush-slider"
-            />
-            <span className="brush-size-value">{brushSize}px</span>
-          </div>
-
-          <div className="control-group">
-            <label>Color:</label>
-            <div className="color-picker">
-              {['#000000', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'].map(c => (
-                <button
-                  key={c}
-                  className={`color-button ${color === c ? 'active' : ''}`}
-                  style={{ backgroundColor: c }}
-                  onClick={() => setColor(c)}
-                />
-              ))}
+        <div className="drawing-controls bg-gradient-to-r from-blue-600 to-green-600 p-4">
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            {/* Brush Size Control */}
+            <div className="flex items-center gap-3">
+              <label className="text-white font-medium text-sm">Brush:</label>
+              <input
+                type="range"
+                min="1"
+                max="20"
+                value={brushSize}
+                onChange={(e) => setBrushSize(Number(e.target.value))}
+                className="brush-slider w-32"
+              />
+              <span className="text-white font-bold bg-white/20 px-3 py-1 rounded-full text-sm">
+                {brushSize}px
+              </span>
             </div>
-          </div>
 
-          <button className="btn btn-danger" onClick={clearCanvas}>
-            Clear Canvas
-          </button>
+            {/* Color Picker */}
+            <div className="flex items-center gap-2">
+              <label className="text-white font-medium text-sm">Color:</label>
+              <div className="flex gap-2">
+                {colors.map(c => (
+                  <button
+                    key={c.value}
+                    className={`color-button w-8 h-8 rounded-full border-2 transition-all hover:scale-110 ${
+                      color === c.value ? 'border-white scale-110 ring-2 ring-white' : 'border-white/40'
+                    }`}
+                    style={{ backgroundColor: c.value }}
+                    onClick={() => setColor(c.value)}
+                    title={c.name}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Clear Button */}
+            <Button variant="destructive" size="sm" onClick={clearCanvas}>
+              🗑️ Clear
+            </Button>
+          </div>
         </div>
       )}
     </div>
