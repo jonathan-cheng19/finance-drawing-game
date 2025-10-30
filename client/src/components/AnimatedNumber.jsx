@@ -8,6 +8,7 @@ function AnimatedNumber({ value, duration = 800, className = '' }) {
   useEffect(() => {
     if (previousValue.current === value) return
 
+    console.log(`💫 AnimatedNumber: ${previousValue.current} → ${value}`)
     setIsAnimating(true)
     const startValue = previousValue.current
     const endValue = value

@@ -58,9 +58,15 @@ const getRoom = (roomCode) => rooms.get(roomCode);
 const broadcastRoomUpdate = (roomCode) => {
   const room = getRoom(roomCode);
   if (room) {
+    // Create deep copies to ensure React detects changes
+    const teamsCopy = JSON.parse(JSON.stringify(room.teams));
+    const playersCopy = JSON.parse(JSON.stringify(room.players));
+    
+    console.log('Broadcasting room update with teams:', teamsCopy.map(t => `${t.name}: ${t.score}`).join(', '));
+    
     io.to(roomCode).emit('roomUpdate', {
-      teams: room.teams,
-      players: room.players,
+      teams: teamsCopy,
+      players: playersCopy,
       gameState: room.gameState,
       currentRound: room.currentRound,
       scores: room.scores

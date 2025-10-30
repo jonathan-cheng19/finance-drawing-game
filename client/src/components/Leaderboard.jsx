@@ -1,9 +1,15 @@
+import { useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Badge } from './ui/badge'
 import AnimatedNumber from './AnimatedNumber'
 import './Leaderboard.css'
 
 function Leaderboard({ teams, players, currentPlayer }) {
+  // Log when teams prop changes
+  useEffect(() => {
+    console.log('🏆 Leaderboard received new teams:', teams.map(t => `${t.name}: ${t.score}`).join(', '))
+  }, [teams])
+
   // Sort teams by score
   const sortedTeams = [...teams].sort((a, b) => b.score - a.score)
 
