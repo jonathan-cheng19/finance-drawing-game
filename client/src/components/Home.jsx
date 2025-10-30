@@ -38,7 +38,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
             <h1 className="text-5xl font-extrabold text-gray-900">
               PPM Pictionary
             </h1>
-            <p className="text-blue-600 font-medium text-lg">Financial Drawing Game</p>
+            <p className="text-blue-500 font-medium text-lg">Financial Drawing Game</p>
           </CardHeader>
 
           <CardContent className="space-y-6 p-10">
@@ -46,7 +46,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
               <Button
                 size="lg"
                 variant="default"
-                className="h-16 flex items-center justify-center gap-3 text-lg w-full bg-blue-600 hover:bg-blue-700 text-white"
+                className="h-16 flex items-center justify-center gap-3 text-lg w-full bg-blue-500 hover:bg-blue-600 text-white"
                 onClick={() => setMode('create')}
               >
                 <span className="text-xl">🎮</span>
@@ -55,7 +55,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
               <Button
                 size="lg"
                 variant="outline"
-                className="h-16 flex items-center justify-center gap-3 text-lg w-full border-2 border-blue-600 text-blue-600 hover:bg-blue-50"
+                className="h-16 flex items-center justify-center gap-3 text-lg w-full border-2 border-blue-500 text-blue-500 hover:bg-blue-50"
                 onClick={() => setMode('join')}
               >
                 <span className="text-xl">🔗</span>
@@ -63,7 +63,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
               </Button>
             </div>
             
-            <p className="text-center text-blue-600 text-sm font-medium pt-4">
+            <p className="text-center text-blue-500 text-sm font-medium pt-4">
               Learn finance concepts while having fun!
             </p>
           </CardContent>
@@ -131,7 +131,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
             <Button
               type="submit"
               size="lg"
-              className={`w-full h-12 ${mode === 'create' ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'border-2 border-blue-600 text-blue-600 hover:bg-blue-50 bg-transparent'}`}
+              className={`w-full h-12 ${mode === 'create' ? 'bg-blue-500 hover:bg-blue-600 text-white' : 'border-2 border-blue-500 text-blue-500 hover:bg-blue-50 bg-transparent'}`}
             >
               {mode === 'create' ? '🎨 Create Room' : '🎯 Join Room'}
             </Button>

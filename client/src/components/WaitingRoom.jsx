@@ -9,8 +9,8 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
   const hasTeams = teams.length > 0
 
   const teamColors = [
+    'from-blue-400 to-blue-500',
     'from-blue-500 to-blue-600',
-    'from-green-500 to-green-600',
     'from-orange-500 to-orange-600',
     'from-red-500 to-red-600',
   ]
@@ -21,9 +21,9 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
         <CardHeader className="p-8">
           <div className="flex items-center justify-between flex-wrap gap-6">
             <CardTitle className="text-3xl">🎮 Waiting Room</CardTitle>
-            <div className="flex items-center gap-2 bg-white/90 px-4 py-2 rounded-lg border-2 border-blue-600">
+            <div className="flex items-center gap-2 bg-white/90 px-4 py-2 rounded-lg border-2 border-blue-500">
               <span className="text-sm text-gray-600 font-semibold">Room Code:</span>
-              <span className="text-2xl font-bold tracking-widest text-blue-600">{roomCode}</span>
+              <span className="text-2xl font-bold tracking-widest text-blue-500">{roomCode}</span>
             </div>
           </div>
         </CardHeader>
@@ -109,7 +109,7 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
                 <>
                   <Button
                     size="lg"
-                    className="w-full h-14 text-lg bg-blue-600 hover:bg-blue-700 text-white"
+                    className="w-full h-14 text-lg bg-blue-500 hover:bg-blue-600 text-white"
                     onClick={onAssignTeams}
                     disabled={players.length < 2}
                   >
@@ -124,7 +124,7 @@ function WaitingRoom({ roomCode, isHost, teams, players, onAssignTeams, onStartG
               ) : (
                 <Button
                   size="lg"
-                  className="w-full h-14 text-lg bg-green-600 hover:bg-green-700 text-white pulse"
+                  className="w-full h-14 text-lg bg-blue-500 hover:bg-blue-600 text-white pulse"
                   onClick={onStartGame}
                 >
                   🚀 Start Game

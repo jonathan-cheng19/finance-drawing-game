@@ -79,16 +79,16 @@ function GameBoard({
     <div className={`game-board min-h-screen py-12 px-8 ${isTimerLow ? 'timer-warning' : ''}`}>
       {/* Correct Guess Overlay */}
       {correctGuessData && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+        <div className="fixed inset-0 z-50 flex items-center justify-center correct-overlay-backdrop animate-fade-in-backdrop">
           <div className="correct-guess-overlay animate-fade-in-overlay">
-            <div className="text-6xl font-extrabold text-green-600 mb-4">
+            <div className="text-7xl font-extrabold mb-6" style={{ color: '#60a5fa' }}>
               ✓ CORRECT!
             </div>
-            <div className="text-4xl font-bold text-gray-900 mb-2">
-              {correctGuessData.playerName}
+            <div className="text-3xl text-gray-700 mb-4">
+              You scored
             </div>
-            <div className="text-3xl font-semibold text-green-600">
-              +{correctGuessData.points} points
+            <div className="text-6xl font-extrabold" style={{ color: '#60a5fa' }}>
+              {correctGuessData.points} points!
             </div>
           </div>
         </div>
@@ -104,7 +104,7 @@ function GameBoard({
                 <div className="flex items-center justify-between flex-wrap gap-4">
                     <div>
                     <div className="flex items-center gap-3 mb-3">
-                      <Badge variant="default" className="text-lg px-4 py-2 bg-blue-600 hover:bg-blue-700">
+                      <Badge variant="default" className="text-lg px-4 py-2 bg-blue-500 hover:bg-blue-600">
                         Round {currentRound}/{totalRounds}
                       </Badge>
                       <span className="text-gray-900 text-base font-medium">{roundConfig?.description}</span>
@@ -143,7 +143,7 @@ function GameBoard({
               <CardContent className="p-0">
                 {isHost ? (
                   <div className="host-view">
-                    <div className="word-to-draw bg-gradient-to-r from-blue-600 to-blue-700 p-6">
+                    <div className="word-to-draw bg-gradient-to-r from-blue-500 to-blue-600 p-6">
                       <h3 className="text-lg font-semibold text-white mb-2">🎨 Draw this:</h3>
                       <div className="text-3xl font-bold text-white mb-2">{wordToDrawn?.word}</div>
                       <p className="text-white/90 text-sm">{wordToDrawn?.definition}</p>
@@ -169,7 +169,7 @@ function GameBoard({
                       onChange={(e) => setGuess(e.target.value)}
                       autoComplete="off"
                     />
-                    <Button type="submit" size="lg" className="px-8 bg-blue-600 hover:bg-blue-700 text-white">
+                    <Button type="submit" size="lg" className="px-8 bg-blue-500 hover:bg-blue-600 text-white">
                       Guess!
                     </Button>
                   </form>

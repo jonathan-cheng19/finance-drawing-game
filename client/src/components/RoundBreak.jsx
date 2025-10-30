@@ -33,7 +33,7 @@ function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
 
         <CardContent className="space-y-6 p-8">
           {/* Word Reveal */}
-          <div className="word-reveal bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-8 text-center">
+          <div className="word-reveal bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-8 text-center">
             <div className="text-white/90 text-lg mb-2">The word was:</div>
             <div className="text-5xl font-extrabold text-white mb-4">{data?.word}</div>
             <div className="text-white text-lg max-w-2xl mx-auto">{data?.definition}</div>
@@ -73,7 +73,7 @@ function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
                       <Button
                         key={points}
                         onClick={() => setBonusPoints(points)}
-                        className={`h-12 ${bonusPoints === points ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-white border-2 border-blue-300 text-blue-600 hover:bg-blue-50'}`}
+                        className={`h-12 ${bonusPoints === points ? 'bg-blue-500 hover:bg-blue-600 text-white' : 'bg-white border-2 border-blue-300 text-blue-500 hover:bg-blue-50'}`}
                       >
                         {points}
                       </Button>
@@ -83,7 +83,7 @@ function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
 
                 <Button
                   size="lg"
-                  className="w-full h-14 text-lg bg-blue-600 hover:bg-blue-700 text-white"
+                  className="w-full h-14 text-lg bg-blue-500 hover:bg-blue-600 text-white"
                   onClick={handleAwardBonus}
                   disabled={selectedTeam === null}
                 >
@@ -105,7 +105,7 @@ function RoundBreak({ isHost, data, teams, onAwardBonus, onNextRound }) {
             <div className="pt-4">
               <Button
                 size="lg"
-                className="w-full h-14 text-lg bg-green-600 hover:bg-green-700 text-white pulse"
+                className="w-full h-14 text-lg bg-blue-500 hover:bg-blue-600 text-white pulse"
                 onClick={onNextRound}
               >
                 {isLastRound ? '🏆 View Results' : `🚀 Start Round ${data?.currentRound + 1}`}

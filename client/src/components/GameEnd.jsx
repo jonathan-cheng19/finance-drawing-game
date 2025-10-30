@@ -8,8 +8,8 @@ function GameEnd({ data, onPlayAgain }) {
   const players = data?.players || []
 
   const getRankColor = (index) => {
-    if (index === 0) return 'from-blue-500 to-blue-600'
-    if (index === 1) return 'from-green-500 to-green-600'
+    if (index === 0) return 'from-blue-400 to-blue-500'
+    if (index === 1) return 'from-blue-500 to-blue-600'
     if (index === 2) return 'from-orange-500 to-orange-600'
     return 'from-gray-500 to-gray-600'
   }
@@ -82,7 +82,7 @@ function GameEnd({ data, onPlayAgain }) {
           <div className="pt-6">
             <Button
               size="lg"
-              className="w-full h-16 text-xl bg-blue-600 hover:bg-blue-700 text-white"
+              className="w-full h-16 text-xl bg-blue-500 hover:bg-blue-600 text-white"
               onClick={onPlayAgain}
             >
               🎮 Play Again

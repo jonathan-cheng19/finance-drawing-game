@@ -81,12 +81,8 @@ function App() {
 
     // Correct guess
     socket.on('correctGuess', (data) => {
-      // Show overlay with correct guess notification
+      // Show overlay with correct guess notification - stays until round ends
       setCorrectGuessData(data)
-      // Auto-hide after 3 seconds
-      setTimeout(() => {
-        setCorrectGuessData(null)
-      }, 3000)
     })
 
     // Round break
