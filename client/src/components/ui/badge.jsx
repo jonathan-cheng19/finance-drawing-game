@@ -3,10 +3,10 @@ import { cn } from "../../lib/utils"
 
 function Badge({ className, variant = "default", ...props }) {
   const variants = {
-    default: "bg-emerald-500 text-white shadow",
+    default: "bg-cyan-500 text-white shadow",
     secondary: "bg-gray-100 text-gray-900",
     destructive: "bg-red-500 text-white shadow",
-    outline: "border-2 border-emerald-500 text-emerald-700 bg-emerald-50",
+    outline: "border-2 border-cyan-500 text-cyan-700 bg-cyan-50",
   }
 
   return (

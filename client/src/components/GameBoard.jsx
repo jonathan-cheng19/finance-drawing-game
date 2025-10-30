@@ -54,8 +54,8 @@ function GameBoard({
   for (let i = 0; i < wordLength; i++) {
     const revealed = revealedLetters.find(r => r.position === i)
     wordDisplay.push(
-      <span key={i} className="word-letter">
-        {revealed ? revealed.letter : '_'}
+      <span key={i} className={`word-letter ${revealed?.letter === ' ' ? 'word-space' : ''}`}>
+        {revealed ? (revealed.letter === ' ' ? '\u00A0\u00A0' : revealed.letter) : '_'}
       </span>
     )
   }
@@ -65,20 +65,20 @@ function GameBoard({
     : 0
 
   const getTimerColor = () => {
-    if (timeRemaining > 60) return 'from-emerald-500 to-teal-500'
-    if (timeRemaining > 30) return 'from-teal-500 to-cyan-500'
-    if (timeRemaining > 10) return 'from-emerald-600 to-teal-600'
+    if (timeRemaining > 60) return 'from-cyan-400 to-blue-500'
+    if (timeRemaining > 30) return 'from-cyan-500 to-blue-600'
+    if (timeRemaining > 10) return 'from-cyan-600 to-blue-700'
     return 'from-red-500 to-red-600'
   }
 
   const isTimerLow = timeRemaining <= 10 && timeRemaining > 0
 
   return (
-    <div className={`game-board min-h-screen py-8 px-6 ${isTimerLow ? 'timer-warning' : ''}`}>
+    <div className={`game-board min-h-screen py-10 px-8 ${isTimerLow ? 'timer-warning' : ''}`}>
       <div className="game-container max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Main Game Area */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-8">
             {/* Header Card */}
             <Card>
               <CardContent className="p-8">
@@ -124,7 +124,7 @@ function GameBoard({
               <CardContent className="p-0">
                 {isHost ? (
                   <div className="host-view">
-                    <div className="word-to-draw bg-gradient-to-r from-emerald-600 to-teal-700 p-6">
+                    <div className="word-to-draw bg-gradient-to-r from-cyan-500 to-blue-600 p-6">
                       <h3 className="text-lg font-semibold text-white/90 mb-2">🎨 Draw this:</h3>
                       <div className="text-3xl font-bold text-white mb-2">{wordToDrawn?.word}</div>
                       <p className="text-white/80 text-sm">{wordToDrawn?.definition}</p>

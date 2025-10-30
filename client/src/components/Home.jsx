@@ -38,12 +38,11 @@ function Home({ onCreateRoom, onJoinRoom }) {
             <h1 className="text-5xl font-extrabold text-gray-900">
               Modern Money Lab
             </h1>
-            <p className="text-emerald-600 font-medium text-lg">Financial Pictionary</p>
-            <div className="h-1 w-24 mx-auto bg-gradient-to-r from-yellow-400 via-emerald-500 to-yellow-400 rounded-full"></div>
+            <p className="text-cyan-600 font-medium text-lg">Financial Pictionary</p>
           </CardHeader>
 
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 gap-4">
+          <CardContent className="space-y-8">
+            <div className="grid grid-cols-1 gap-5">
               <Button
                 size="lg"
                 variant="default"
@@ -64,7 +63,7 @@ function Home({ onCreateRoom, onJoinRoom }) {
               </Button>
             </div>
             
-            <p className="text-center text-emerald-600 text-sm font-medium pt-4">
+            <p className="text-center text-cyan-600 text-sm font-medium pt-4">
               Learn finance concepts while having fun!
             </p>
           </CardContent>
