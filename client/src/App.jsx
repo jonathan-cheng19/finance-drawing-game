@@ -7,7 +7,9 @@ import RoundBreak from './components/RoundBreak'
 import GameEnd from './components/GameEnd'
 import './App.css'
 
-const socket = io('http://localhost:3000')
+// Get backend URL from environment variable, fallback to localhost
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000'
+const socket = io(BACKEND_URL)
 
 function App() {
   const [gameState, setGameState] = useState('home') // home, waiting, playing, roundBreak, ended
@@ -24,8 +26,18 @@ function App() {
   const [drawing, setDrawing] = useState([])
   const [roundBreakData, setRoundBreakData] = useState(null)
   const [gameEndData, setGameEndData] = useState(null)
+  const [isConnected, setIsConnected] = useState(false)
 
   useEffect(() => {
+    // Connection status
+    socket.on('connect', () => {
+      setIsConnected(true)
+    })
+
+    socket.on('disconnect', () => {
+      setIsConnected(false)
+    })
+
     // Room update
     socket.on('roomUpdate', (data) => {
       setTeams(data.teams)
@@ -99,6 +111,8 @@ function App() {
     })
 
     return () => {
+      socket.off('connect')
+      socket.off('disconnect')
       socket.off('roomUpdate')
       socket.off('gameStarted')
       socket.off('wordToDrawn')
@@ -179,8 +193,14 @@ function App() {
 
   return (
     <div className="app">
+      {/* Connection Status Indicator */}
+      <div className={`connection-status ${isConnected ? 'connected' : 'disconnected'}`}>
+        <span className="status-dot"></span>
+        {isConnected ? 'Connected' : 'Connecting...'}
+      </div>
+
       {gameState === 'home' && (
-        <Home onCreateRoom={createRoom} onJoinRoom={joinRoom} />
+        <Home onCreateRoom={createRoom} onJoinRoom={joinRoom} isConnected={isConnected} />
       )}
 
       {gameState === 'waiting' && (
