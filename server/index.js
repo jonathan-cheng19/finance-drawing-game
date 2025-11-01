@@ -218,6 +218,8 @@ io.on('connection', (socket) => {
     }
 
     console.log(`🎮 Starting game with word: "${room.currentWord}" (length: ${room.currentWord.length})`);
+    console.log(`   Round: ${room.currentRound}/${TOTAL_ROUNDS}`);
+    console.log(`   Difficulty: ${ROUND_CONFIG[1].difficulty} (${ROUND_CONFIG[1].description})`);
     console.log(`   Space positions: [${spacePositions.join(', ')}]`);
 
     io.to(roomCode).emit('gameStarted', {
@@ -355,12 +357,16 @@ io.on('connection', (socket) => {
       return;
     }
 
+    console.log(`🔄 Next round requested. Current: ${room.currentRound}/${TOTAL_ROUNDS}`);
+    
     if (room.currentRound >= TOTAL_ROUNDS) {
+      console.log(`🏁 All ${TOTAL_ROUNDS} rounds completed! Ending game.`);
       endGame(roomCode);
       return;
     }
 
     room.currentRound++;
+    console.log(`➡️ Moving to round ${room.currentRound}/${TOTAL_ROUNDS}`);
     room.gameState = 'playing';
 
     const difficulty = ROUND_CONFIG[room.currentRound].difficulty;
@@ -379,7 +385,8 @@ io.on('connection', (socket) => {
       }
     }
 
-    console.log(`🎮 Starting round ${room.currentRound} with word: "${room.currentWord}" (length: ${room.currentWord.length})`);
+    console.log(`🎮 Starting round ${room.currentRound}/${TOTAL_ROUNDS} with word: "${room.currentWord}" (length: ${room.currentWord.length})`);
+    console.log(`   Difficulty: ${ROUND_CONFIG[room.currentRound].difficulty} (${ROUND_CONFIG[room.currentRound].description})`);
     console.log(`   Space positions: [${spacePositions.join(', ')}]`);
 
     io.to(roomCode).emit('roundStarted', {
