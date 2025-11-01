@@ -107,17 +107,25 @@ io.on('connection', (socket) => {
     socket.join(roomCode);
 
     callback({ success: true, roomCode, isHost: true });
-    console.log(`Room created: ${roomCode}`);
+    console.log(`🎮 Room created: ${roomCode} by ${socket.id}`);
+    console.log(`   Total active rooms: ${rooms.size}`);
+    console.log(`   All room codes: [${Array.from(rooms.keys()).join(', ')}]`);
   });
 
   // Join an existing room
   socket.on('joinRoom', ({ roomCode, playerName }, callback) => {
+    console.log(`🔗 ${playerName} (${socket.id}) attempting to join room: ${roomCode}`);
+    console.log(`   Available rooms: [${Array.from(rooms.keys()).join(', ')}]`);
+    
     const room = getRoom(roomCode);
 
     if (!room) {
+      console.log(`❌ Room ${roomCode} not found!`);
       callback({ success: false, message: 'Room not found' });
       return;
     }
+    
+    console.log(`✅ Room ${roomCode} found! Current players: ${room.players.length}`);
 
     if (room.gameState !== 'waiting') {
       callback({ success: false, message: 'Game already in progress' });
@@ -141,7 +149,8 @@ io.on('connection', (socket) => {
     });
 
     broadcastRoomUpdate(roomCode);
-    console.log(`${playerName} joined room ${roomCode}`);
+    console.log(`✅ ${playerName} successfully joined room ${roomCode}`);
+    console.log(`   Room now has ${room.players.length} players`);
   });
 
   // Assign players to teams
